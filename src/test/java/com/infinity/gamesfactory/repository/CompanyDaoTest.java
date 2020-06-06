@@ -1,6 +1,6 @@
 package com.infinity.gamesfactory.repository;
 
-import com.infinity.gamesfactory.model.Company;
+import com.infinity.gamesfactory.jdbc.Company;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,39 +1,18 @@
-package com.infinity.gamesfactory.model;
+package com.infinity.gamesfactory.jdbc;
 
+import java.util.Date;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "Consoles")
 public class Game {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private long id;
-
-    @Column(name = "gamesName")
     private String name;
-
-    @Column(name = "price")
     private double price;
-
-    @Column(name = "genre")
     private String genre;
-
-    @Column(name = "players")
     private String players;
-
-    @Column(name = "releaseTime")
     private String releaseTime;
-
-    @Column(name = "supportPlatform")
     private String supportPlatform;
-
-    @Column(name = "developer")
     private String developer;
-
-    @Column(name = "supportedLanguages")
     private String supportedLanguages;
 
 
@@ -116,7 +95,6 @@ public class Game {
     }
 
     public String getSupportedLanguages(){return supportedLanguages;}
-
 
 
 }

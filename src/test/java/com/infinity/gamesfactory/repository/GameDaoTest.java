@@ -1,7 +1,6 @@
 package com.infinity.gamesfactory.repository;
 
-import com.infinity.gamesfactory.model.Console;
-import com.infinity.gamesfactory.model.Game;
+import com.infinity.gamesfactory.jdbc.Game;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +84,7 @@ public class GameDaoTest {
     {
 
         assertEquals(1,gameJDBCDAO.getGames().size());
-       
+
 
 
     }

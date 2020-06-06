@@ -1,34 +1,16 @@
-package com.infinity.gamesfactory.model;
+package com.infinity.gamesfactory.jdbc;
 
-import javax.persistence.*;
+import java.sql.Date;
 
-@Entity
-@Table(name = "Consoles")
 public class Console {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name = "consoleName")
     private String name;
-
-    @Column(name = "price")
     private double price;
-
-    @Column(name = "issueTime")
     private String issueTime;
-
-    @Column(name = "color")
     private String color;
-
-    @Column(name = "developer")
     private String developer;
-
-    @Column(name = "whatIncluded")
     private String whatIncluded;
-
 
 
 
@@ -100,6 +82,10 @@ public class Console {
     {
         return whatIncluded;
     }
+
+
+
+
 
 
 

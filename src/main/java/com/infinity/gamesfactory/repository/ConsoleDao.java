@@ -1,6 +1,6 @@
 package com.infinity.gamesfactory.repository;
 
-import com.infinity.gamesfactory.model.Console;
+import com.infinity.gamesfactory.jdbc.Console;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
