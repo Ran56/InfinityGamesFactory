@@ -4,7 +4,7 @@ package com.infinity.gamesfactory.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Consoles")
+@Table(name = "Games")
 public class Game {
 
     @Id

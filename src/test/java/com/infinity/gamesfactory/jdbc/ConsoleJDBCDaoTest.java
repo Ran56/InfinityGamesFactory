@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
-public class ConsoleDaoTest {
+public class ConsoleJDBCDaoTest {
 
-    private static Logger logger = LoggerFactory.getLogger(CompanyDaoTest.class);
+    private static Logger logger = LoggerFactory.getLogger(CompanyJDBCDaoTest.class);
     private ConsoleJDBCDao consoleJDBCDAO;
     private Console console;
     @Before

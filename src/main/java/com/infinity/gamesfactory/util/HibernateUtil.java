@@ -23,7 +23,7 @@ public class HibernateUtil {
         if(sessionFactory == null)
         {
             try {
-                String[] modelPackages = {"com.ascending.training.model"};
+                String[] modelPackages = {"com.infinity.gamesfactory.model"};
                 String dbDriver = System.getProperty("database.driver");
                 String dbDialect = System.getProperty("database.dialect");
                 String dbUrl = System.getProperty("database.url");
@@ -59,17 +59,17 @@ public class HibernateUtil {
 
 
     }
-    public static void main(String[] args)
-    {
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        SessionFactory sf2 = HibernateUtil.getSessionFactory();
-        logger.info("success generate sf" + sf.hashCode());
-        logger.info("success generate sf" + sf2.hashCode());
-        Session s = sf.openSession();
-        s.close();
-        Session s1 = sf.openSession();
-        s1.close();
-    }
+//    public static void main(String[] args)
+//    {
+//        SessionFactory sf = HibernateUtil.getSessionFactory();
+//        SessionFactory sf2 = HibernateUtil.getSessionFactory();
+//        logger.info("success generate sf" + sf.hashCode());
+//        logger.info("success generate sf" + sf2.hashCode());
+//        Session s = sf.openSession();
+//        s.close();
+//        Session s1 = sf.openSession();
+//        s1.close();
+//    }
 
 
 

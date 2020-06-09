@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameDao {
+public class GameJDBCDao {
 
 
 
@@ -19,7 +19,7 @@ public class GameDao {
     static final String USER = "ran";
     static final String PASSWORD = "password";
 
-    private Logger logger = LoggerFactory.getLogger(GameDao.class);
+    private Logger logger = LoggerFactory.getLogger(GameJDBCDao.class);
 
 
     public int save (Game game) {
@@ -185,7 +185,7 @@ public class GameDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //STEP 6: finally block used to close resources
+
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();

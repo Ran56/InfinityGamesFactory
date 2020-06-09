@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
-public class CompanyDaoTest {
-    private static Logger logger = LoggerFactory.getLogger(CompanyDaoTest.class);
+public class CompanyJDBCDaoTest {
+    private static Logger logger = LoggerFactory.getLogger(CompanyJDBCDaoTest.class);
     private CompanyJDBCDao companyJDBCDAO;
     private  Company company;
     @Before

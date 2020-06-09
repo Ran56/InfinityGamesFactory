@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsoleDao {
+public class ConsoleJDBCDao {
 
 
     List<Console> consoles = new ArrayList();
@@ -17,7 +17,7 @@ public class ConsoleDao {
     static final String USER = "ran";
     static final String PASSWORD = "password";
 
-    private Logger logger = LoggerFactory.getLogger(ConsoleDao.class);
+    private Logger logger = LoggerFactory.getLogger(ConsoleJDBCDao.class);
 
 
     public int save (Console console) {

@@ -78,7 +78,7 @@ public class Console {
 
     public double getPrice()
     {
-        return this.price = price;
+        return price;
     }
 
     public String getIssueTime()

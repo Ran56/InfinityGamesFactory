@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
-public class GameDaoTest {
+public class GameJDBCDaoTest {
 
 
 
-    private static Logger logger = LoggerFactory.getLogger(GameDaoTest.class);
+    private static Logger logger = LoggerFactory.getLogger(GameJDBCDaoTest.class);
     private GameJDBCDao gameJDBCDAO;
     private Game game;
     @Before

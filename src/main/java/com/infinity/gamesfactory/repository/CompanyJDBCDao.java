@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyDao {
+public class CompanyJDBCDao {
 
     List<Company> companies = new ArrayList();
 
@@ -16,7 +16,7 @@ public class CompanyDao {
     static final String USER = "ran";
     static final String PASSWORD = "password";
 
-    private Logger logger = LoggerFactory.getLogger(CompanyDao.class);
+    private Logger logger = LoggerFactory.getLogger(CompanyJDBCDao.class);
 
 
     public int save (Company company) {
@@ -174,7 +174,7 @@ public class CompanyDao {
             e.printStackTrace();
         }
         finally {
-            //STEP 6: finally block used to close resources
+
             try {
                 if(rs != null) rs.close();
                 if(stmt != null) stmt.close();
