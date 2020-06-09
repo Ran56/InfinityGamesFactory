@@ -1,6 +1,6 @@
-package com.infinity.gamesfactory.repository;
+package com.infinity.gamesfactory.jdbc;
 
-import com.infinity.gamesfactory.jdbc.Company;
+import com.infinity.gamesfactory.repository.CompanyJDBCDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,12 +12,12 @@ import static org.junit.Assert.assertNotSame;
 
 public class CompanyDaoTest {
     private static Logger logger = LoggerFactory.getLogger(CompanyDaoTest.class);
-    private CompanyDao companyJDBCDAO;
+    private CompanyJDBCDao companyJDBCDAO;
     private  Company company;
     @Before
     public void setUP()
     {
-        companyJDBCDAO = new CompanyDao();
+        companyJDBCDAO = new CompanyJDBCDao();
         company = new Company();
     }
 

@@ -1,6 +1,6 @@
-package com.infinity.gamesfactory.repository;
+package com.infinity.gamesfactory.jdbc;
 
-import com.infinity.gamesfactory.jdbc.Game;
+import com.infinity.gamesfactory.repository.GameJDBCDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +15,12 @@ public class GameDaoTest {
 
 
     private static Logger logger = LoggerFactory.getLogger(GameDaoTest.class);
-    private GameDao gameJDBCDAO;
+    private GameJDBCDao gameJDBCDAO;
     private Game game;
     @Before
     public void setUP()
     {
-        gameJDBCDAO = new GameDao();
+        gameJDBCDAO = new GameJDBCDao();
         game = new Game();
     }
 
