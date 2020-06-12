@@ -30,8 +30,6 @@ public class Console {
     private String whatIncluded;
 
 
-
-
     public void setId(long id)
     {
         this.id = id;

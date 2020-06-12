@@ -45,13 +45,13 @@ public class CompanyDaoImpl implements CompanyDAO {
         String hql = "from Company";
         List<Company> companies = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-
        try{
+
         Query query = session.createQuery(hql);
         companies = query.list();
         session.close();
        }
-       catch(HibernateException e)
+       catch(Exception e)
        {
            logger.error("Fail to close session"+e);
            session.close();

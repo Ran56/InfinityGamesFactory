@@ -2,6 +2,7 @@ package com.infinity.gamesfactory.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Companies")
@@ -29,7 +30,6 @@ public class Company {
 
     @Column(name = "webPageAddress")
     private String webAddress;
-
 
     public void setId(long id)
     {
