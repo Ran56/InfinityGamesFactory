@@ -2,6 +2,7 @@ package com.infinity.gamesfactory.model;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
@@ -17,7 +18,7 @@ public class Game {
     private String name;
 
     @Column(name = "price")
-    private double price;
+    private BigDecimal price;
 
     @Column(name = "genre")
     private String genre;
@@ -27,9 +28,6 @@ public class Game {
 
     @Column(name = "releaseTime")
     private Date releaseTime;
-
-    @Column(name = "supportPlatform")
-    private String supportPlatform;
 
     @Column(name = "supportedLanguages")
     private String supportedLanguages;
@@ -48,7 +46,7 @@ public class Game {
         this.name = name;
     }
 
-    public void setPrice(double price)
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
@@ -60,11 +58,6 @@ public class Game {
     public void setReleaseTime(Date releaseTime)
     {
         this.releaseTime = releaseTime;
-    }
-
-    public void setSupportPlatform(String supportPlatform)
-    {
-        this.supportPlatform = supportPlatform;
     }
 
     public void setConsole(Console console){this.console = console; }
@@ -86,7 +79,7 @@ public class Game {
         return name;
     }
 
-    public double getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }
@@ -104,11 +97,6 @@ public class Game {
     public Date getReleaseTime()
     {
         return releaseTime;
-    }
-
-    public String getSupportPlatform()
-    {
-        return supportPlatform;
     }
 
     public String getSupportedLanguages(){return supportedLanguages;}

@@ -8,17 +8,17 @@ public interface CompanyDAO {
 
 
     Company save(Company company);
-    List<Company> getDepartments();
+    List<Company> getCompanies();
     Company getBy(Long id);
     boolean delete(Company company);
 
     Company update(Company company);
     boolean delete(String name);
-    List<Company> getDepartmentsEager();
-    Company getDepartmentEagerBy(Long id);
-    Company getDepartmentByName(String name);
-    Company getDepartmentAndEmployeesBy(String  name);
-    List<Object[]> getDepartmentAndEmployeesAndAccounts(String name);
+    List<Company> getCompaniesEager();
+    Company getCompanyEagerBy(Long id);
+    Company getCompanyByName(String name);
+    Company getCompaniesAndConsolesBy(String name);
+    List<Object[]> getCompaniesAndConsolesAndGames(String name);
 
 
 

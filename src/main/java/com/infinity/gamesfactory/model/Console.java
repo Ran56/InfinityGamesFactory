@@ -1,6 +1,7 @@
 package com.infinity.gamesfactory.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class Console {
     private String name;
 
     @Column(name = "price")
-    private double price;
+    private BigDecimal price;
 
     @Column(name = "issueTime")
     private Date issueTime;
@@ -33,7 +34,7 @@ public class Console {
     private Company company;
 
     @OneToMany(mappedBy = "console", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
-    private Set<Game> game;
+    private Set<Game> gameSet;
 
 
     public void setId(long id)
@@ -46,7 +47,7 @@ public class Console {
         this.name = name;
     }
 
-    public void setPrice(double price)
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
@@ -79,7 +80,7 @@ public class Console {
         return name;
     }
 
-    public double getPrice()
+    public BigDecimal getPrice()
     {
         return price;
     }

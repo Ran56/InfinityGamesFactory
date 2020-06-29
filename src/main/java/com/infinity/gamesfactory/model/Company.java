@@ -28,7 +28,7 @@ public class Company {
     @Column(name = "webPageAddress")
     private String webAddress;
 
-    @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private Set<Console> consoleSet;
 
 

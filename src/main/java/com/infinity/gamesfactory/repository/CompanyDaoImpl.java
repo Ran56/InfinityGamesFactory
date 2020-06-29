@@ -41,8 +41,8 @@ public class CompanyDaoImpl implements CompanyDAO {
     }
 
     @Override
-    public List<Company> getDepartments() {
-        String hql = "from Company";
+    public List<Company> getCompanies() {
+        String hql = "FROM Company";
         List<Company> companies = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
        try{
@@ -51,7 +51,7 @@ public class CompanyDaoImpl implements CompanyDAO {
         companies = query.list();
         session.close();
        }
-       catch(Exception e)
+       catch(HibernateException e)
        {
            logger.error("Fail to close session"+e);
            session.close();
@@ -64,7 +64,7 @@ public class CompanyDaoImpl implements CompanyDAO {
     @Override
     public boolean delete(Company company) {
         Transaction transaction = null;
-        String hql = "delete Company where id = :Id";
+        String hql = "DELETE Company c where c.id = :Id";
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         int deletedCount = 0;
@@ -90,12 +90,44 @@ public class CompanyDaoImpl implements CompanyDAO {
 
     @Override
     public Company getBy(Long id) {
-        return null;
+        String hql = "FROM Company c where c.id = :Id";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Company company = new Company();
+        try
+        {
+            Query<Company> query = session.createQuery(hql);
+            query.setParameter("Id",id);
+            company = query.uniqueResult();
+            session.close();
+            return company;
+        }
+        catch (HibernateException e)
+        {
+            logger.error("failure to retrieve data record",e);
+            session.close();
+            return null;
+        }
     }
 
     @Override
     public Company update(Company company) {
-        return null;
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.save(company);
+            transaction.commit();
+            session.close();
+            return company;
+        }
+        catch(Exception e)
+        {
+            if(transaction != null)
+                transaction.rollback();
+            logger.info("Fail to update data",e);
+            session.close();
+            return null;
+        }
     }
 
     @Override
@@ -104,27 +136,42 @@ public class CompanyDaoImpl implements CompanyDAO {
     }
 
     @Override
-    public List<Company> getDepartmentsEager() {
+    public List<Company> getCompaniesEager() {
         return null;
     }
 
     @Override
-    public Company getDepartmentEagerBy(Long id) {
+    public Company getCompanyEagerBy(Long id) {
+//        String hql = "FROM Company c LEFT JOIN FETCH c.consoleSet";
+//        Company company = new Company();
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        try{
+//
+//            Query<Company> query = session.createQuery(hql);
+//            company = query.uniqueResult();
+//            session.close();
+//        }
+//        catch(Exception e)
+//        {
+//            logger.error("Fail to close session"+e);
+//            session.close();
+//        }
+//        return company;
         return null;
     }
 
     @Override
-    public Company getDepartmentByName(String name) {
+    public Company getCompanyByName(String name) {
         return null;
     }
 
     @Override
-    public Company getDepartmentAndEmployeesBy(String name) {
+    public Company getCompaniesAndConsolesBy(String name) {
         return null;
     }
 
     @Override
-    public List<Object[]> getDepartmentAndEmployeesAndAccounts(String name) {
+    public List<Object[]> getCompaniesAndConsolesAndGames(String name) {
         return null;
     }
 }
