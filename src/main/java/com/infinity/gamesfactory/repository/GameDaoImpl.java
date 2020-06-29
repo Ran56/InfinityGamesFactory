@@ -9,10 +9,12 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class GameDaoImpl implements GameDao {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -139,11 +141,12 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public Game getGameEagerBy(Long id) {
-        String hql = "FROM Game g LEFT JOIN FETCH g.console";
+        String hql = "FROM Game g LEFT JOIN FETCH g.console where g.id =:Id";
         Game game= new Game();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try{
             Query<Game> query = session.createQuery(hql);
+            query.setParameter("Id",id);
             game = query.uniqueResult();
             session.close();
         }

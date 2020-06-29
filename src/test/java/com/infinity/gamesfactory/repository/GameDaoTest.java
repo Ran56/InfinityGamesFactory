@@ -1,5 +1,6 @@
 package com.infinity.gamesfactory.repository;
 
+import com.infinity.gamesfactory.ApplicationBootstrap;
 import com.infinity.gamesfactory.model.Company;
 import com.infinity.gamesfactory.model.Console;
 import com.infinity.gamesfactory.model.Game;
@@ -7,20 +8,30 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes= ApplicationBootstrap.class)
 public class GameDaoTest {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private ConsoleDao consoleDao = new ConsoleDaoImpl();
+    @Autowired
+    private ConsoleDao consoleDao;
     private Console console = new Console();
 
-    private CompanyDAO companyDAO = new CompanyDaoImpl();
+    @Autowired
+    private CompanyDAO companyDAO;
     private Company company = new Company();
 
-    private Game game = new Game();
+    @Autowired
     private GameDao gameDao = new GameDaoImpl();
+    private Game game = new Game();
+
 
 
     @Before
@@ -63,6 +74,11 @@ public class GameDaoTest {
         Assert.assertEquals(expect,gameDao.getGames().size());
     }
 
-
+    @Test
+    public void getGamesEagerBy()
+    {
+        Game game1 = gameDao.getGameEagerBy(game.getId());
+        Assert.assertEquals(game.getName(),game1.getName());
+    }
 
 }

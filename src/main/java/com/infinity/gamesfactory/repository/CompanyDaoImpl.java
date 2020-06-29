@@ -9,12 +9,13 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Repository
 public class CompanyDaoImpl implements CompanyDAO {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -142,22 +143,23 @@ public class CompanyDaoImpl implements CompanyDAO {
 
     @Override
     public Company getCompanyEagerBy(Long id) {
-//        String hql = "FROM Company c LEFT JOIN FETCH c.consoleSet";
-//        Company company = new Company();
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        try{
-//
-//            Query<Company> query = session.createQuery(hql);
-//            company = query.uniqueResult();
-//            session.close();
-//        }
-//        catch(Exception e)
-//        {
-//            logger.error("Fail to close session"+e);
-//            session.close();
-//        }
-//        return company;
-        return null;
+        String hql = "FROM Company c LEFT JOIN FETCH c.consoleSet where c.id=:Id";
+        Company company = new Company();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try{
+
+            Query<Company> query = session.createQuery(hql);
+            query.setParameter("Id",id);
+            company = query.uniqueResult();
+            session.close();
+        }
+        catch(Exception e)
+        {
+            logger.error("Fail to close session"+e);
+            session.close();
+        }
+        return company;
+       // return null;
     }
 
     @Override

@@ -8,10 +8,12 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ConsoleDaoImpl implements ConsoleDao {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -138,12 +140,13 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     @Override
     public Console getConsoleEagerBy(Long id) {
-        String hql = "FROM Console c LEFT JOIN FETCH c.company";
+        String hql = "FROM Console c LEFT JOIN FETCH c.company where c.id=:Id";
         Console console= new Console();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try{
 
             Query<Console> query = session.createQuery(hql);
+            query.setParameter("Id",id);
             console = query.uniqueResult();
             session.close();
         }
