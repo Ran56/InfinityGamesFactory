@@ -51,7 +51,7 @@ public class HibernateUtil {
             }
             catch (Exception e)
             {
-                logger.error("Fail to generate hibernate sessionfactory", e);
+                logger.error("Fail to generate hibernate sessionFactory", e);
             }
 
         }

@@ -1,6 +1,8 @@
 package com.infinity.gamesfactory.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Consoles")
@@ -11,23 +13,27 @@ public class Console {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "consoleName")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "price")
     private double price;
 
     @Column(name = "issueTime")
-    private String issueTime;
+    private Date issueTime;
 
     @Column(name = "color")
     private String color;
 
-    @Column(name = "developer")
-    private String developer;
-
     @Column(name = "whatIncluded")
     private String whatIncluded;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToMany(mappedBy = "console", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private Set<Game> game;
 
 
     public void setId(long id)
@@ -45,7 +51,7 @@ public class Console {
         this.price = price;
     }
 
-    public void setIssueTime(String issueTime)
+    public void setIssueTime(Date issueTime)
     {
         this.issueTime = issueTime;
     }
@@ -55,13 +61,12 @@ public class Console {
         this.color = color;
     }
 
-    public void setDeveloper(String developer){this.developer = developer; }
-
     public void setWhatIncluded(String whatIncluded)
     {
         this.whatIncluded = whatIncluded;
     }
 
+    public void setCompany(Company company){ this.company = company; }
 
 
     public long getId()
@@ -79,7 +84,7 @@ public class Console {
         return price;
     }
 
-    public String getIssueTime()
+    public Date getIssueTime()
     {
         return issueTime;
     }
@@ -89,17 +94,16 @@ public class Console {
         return color;
     }
 
-    public String getDeveloper()
-    {
-        return developer;
-    }
-
     public String getWhatIncluded()
     {
         return whatIncluded;
     }
 
-
+    public Company getCompany(){
+        if(this.company ==null)
+        return null;
+        return this.company;
+    }
 
 
 }

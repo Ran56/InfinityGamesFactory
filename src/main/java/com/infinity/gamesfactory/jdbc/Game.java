@@ -1,6 +1,6 @@
 package com.infinity.gamesfactory.jdbc;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Game {
 
@@ -10,9 +10,8 @@ public class Game {
     private double price;
     private String genre;
     private String players;
-    private String releaseTime;
-    private String supportPlatform;
-    private String developer;
+    private Date releaseTime;
+    private long consoleId;
     private String supportedLanguages;
 
 
@@ -35,17 +34,12 @@ public class Game {
 
     public void setPlayers(String players){this.players = players; }
 
-    public void setReleaseTime(String releaseTime)
+    public void setReleaseTime(Date releaseTime)
     {
         this.releaseTime = releaseTime;
     }
 
-    public void setSupportPlatform(String supportPlatform)
-    {
-        this.supportPlatform = supportPlatform;
-    }
-
-    public void setDeveloper(String developer){this.developer = developer; }
+    public void setConsoleId(long consoleId){this.consoleId = consoleId; }
 
     public void setSupportedLanguages(String supportedLanguages)
     {
@@ -79,19 +73,14 @@ public class Game {
         return players;
     }
 
-    public String getReleaseTime()
+    public Date getReleaseTime()
     {
         return releaseTime;
     }
 
-    public String getSupportPlatform()
+    public long getConsoleId()
     {
-        return supportPlatform;
-    }
-
-    public String getDeveloper()
-    {
-        return developer;
+        return consoleId;
     }
 
     public String getSupportedLanguages(){return supportedLanguages;}

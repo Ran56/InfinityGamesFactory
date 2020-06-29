@@ -1,0 +1,13 @@
+
+ALTER TABLE Consoles
+DROP  COLUMN price;
+
+ALTER TABLE Consoles
+ADD COLUMN price NUMERIC (5,2);
+
+
+ALTER TABLE Games
+DROP  COLUMN price;
+
+ALTER TABLE Games
+ADD COLUMN price NUMERIC (5,2);

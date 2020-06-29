@@ -7,9 +7,9 @@ public class Console {
     private long id;
     private String name;
     private double price;
-    private String issueTime;
+    private Date issueTime;
     private String color;
-    private String developer;
+    private long companyId;
     private String whatIncluded;
 
 
@@ -29,7 +29,7 @@ public class Console {
         this.price = price;
     }
 
-    public void setIssueTime(String issueTime)
+    public void setIssueTime(Date issueTime)
     {
         this.issueTime = issueTime;
     }
@@ -39,7 +39,7 @@ public class Console {
         this.color = color;
     }
 
-    public void setDeveloper(String developer){this.developer = developer; }
+    public void setCompanyId(long companyId){this.companyId = companyId; }
 
     public void setWhatIncluded(String whatIncluded)
     {
@@ -63,7 +63,7 @@ public class Console {
         return this.price = price;
     }
 
-    public String getIssueTime()
+    public Date getIssueTime()
     {
         return issueTime;
     }
@@ -73,9 +73,9 @@ public class Console {
         return color;
     }
 
-    public String getDeveloper()
+    public long getCompanyId()
     {
-        return developer;
+        return companyId;
     }
 
     public String getWhatIncluded()

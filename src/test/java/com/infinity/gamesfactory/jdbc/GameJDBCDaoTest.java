@@ -1,11 +1,12 @@
 package com.infinity.gamesfactory.jdbc;
 
-import com.infinity.gamesfactory.repository.GameJDBCDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Time;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -39,9 +40,7 @@ public class GameJDBCDaoTest {
         game.setPrice(59.99);
         game.setGenre("Platformer, Action");
         game.setPlayers("up to 2 players");
-        game.setReleaseTime("2017-10-27");
-        game.setSupportPlatform("Nintendo Switch");
-        game.setDeveloper("Nintendo");
+        game.setConsoleId(1);
         game.setSupportedLanguages("Japanese, English, French, German, Italian, Spanish, Dutch, Russian, Chinese");
 
         assertEquals(1, gameJDBCDAO.save(game));
@@ -68,9 +67,7 @@ public class GameJDBCDaoTest {
         game.setPrice(59.99);
         game.setGenre("Platformer, Action");
         game.setPlayers("up to 2 players");
-        game.setReleaseTime("2017-10-27");
-        game.setSupportPlatform("Nintendo Switch");
-        game.setDeveloper("Nintendo");
+        game.setConsoleId(1);
         game.setSupportedLanguages("Japanese, English, French, German, Italian, Spanish, Dutch, Russian, Chinese");
 
         assertEquals(1, gameJDBCDAO.update(oldName,game));
@@ -82,11 +79,7 @@ public class GameJDBCDaoTest {
     @Test
     public void getConsoles()
     {
-
-        assertEquals(1,gameJDBCDAO.getGames().size());
-
-
-
+        assertEquals(2,gameJDBCDAO.getGames().size());
     }
 
 

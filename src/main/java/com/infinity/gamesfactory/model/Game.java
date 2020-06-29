@@ -2,6 +2,7 @@ package com.infinity.gamesfactory.model;
 
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "Games")
@@ -12,7 +13,7 @@ public class Game {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "gamesName")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "price")
@@ -25,18 +26,17 @@ public class Game {
     private String players;
 
     @Column(name = "releaseTime")
-    private String releaseTime;
+    private Date releaseTime;
 
     @Column(name = "supportPlatform")
     private String supportPlatform;
 
-    @Column(name = "developer")
-    private String developer;
-
     @Column(name = "supportedLanguages")
     private String supportedLanguages;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "console_id")
+    private Console console;
 
     public void setId(long id)
     {
@@ -57,7 +57,7 @@ public class Game {
 
     public void setPlayers(String players){this.players = players; }
 
-    public void setReleaseTime(String releaseTime)
+    public void setReleaseTime(Date releaseTime)
     {
         this.releaseTime = releaseTime;
     }
@@ -67,7 +67,7 @@ public class Game {
         this.supportPlatform = supportPlatform;
     }
 
-    public void setDeveloper(String developer){this.developer = developer; }
+    public void setConsole(Console console){this.console = console; }
 
     public void setSupportedLanguages(String supportedLanguages)
     {
@@ -101,7 +101,7 @@ public class Game {
         return players;
     }
 
-    public String getReleaseTime()
+    public Date getReleaseTime()
     {
         return releaseTime;
     }
@@ -111,13 +111,11 @@ public class Game {
         return supportPlatform;
     }
 
-    public String getDeveloper()
-    {
-        return developer;
-    }
-
     public String getSupportedLanguages(){return supportedLanguages;}
 
-
-
+    public Console getConsole(){
+        if(this.console==null)
+            return null;
+            return this.console;
+    }
 }

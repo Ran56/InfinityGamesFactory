@@ -1,6 +1,5 @@
-package com.infinity.gamesfactory.repository;
+package com.infinity.gamesfactory.jdbc;
 
-import com.infinity.gamesfactory.jdbc.Console;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +30,13 @@ public class ConsoleJDBCDao {
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
 
             logger.info("Creating statement...");
-            String sql = "INSERT INTO Consoles (consoleName, price, issueTime, color, developer, whatIncluded)" + "VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO Consoles (name, price, issueTime, color, company_id, whatIncluded)" + "VALUES (?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, console.getName());
             ps.setDouble(2, console.getPrice());
-            ps.setString(3, console.getIssueTime());
+            ps.setDate(3, console.getIssueTime());
             ps.setString(4, console.getColor());
-            ps.setString(5, console.getDeveloper());
+            ps.setLong(5, console.getCompanyId());
             ps.setString(6, console.getWhatIncluded());
 
             r = ps.executeUpdate();
@@ -71,7 +70,7 @@ public class ConsoleJDBCDao {
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
             logger.info("Creating statement...");
 
-            String sql = "DELETE FROM Consoles WHERE consoleName = ?";
+            String sql = "DELETE FROM Consoles WHERE name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,name);
 
@@ -104,13 +103,13 @@ public class ConsoleJDBCDao {
             logger.debug("Connection to a database...");
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
             logger.info("Creating statement...");
-            String sql = "UPDATE Consoles SET consoleName=?, price=?, issueTime=?, color=?, developer=?, whatIncluded=? WHERE consoleName=?";
+            String sql = "UPDATE Consoles SET name=?, price=?, issueTime=?, color=?, company_id=?, whatIncluded=? WHERE name=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,console.getName());
             ps.setDouble(2,console.getPrice());
-            ps.setString(3,console.getIssueTime());
+            ps.setDate(3,console.getIssueTime());
             ps.setString(4,console.getColor());
-            ps.setString(5,console.getDeveloper());
+            ps.setLong(5,console.getCompanyId());
             ps.setString(6,console.getWhatIncluded());
             ps.setString(7,oldName);
 
@@ -152,11 +151,11 @@ public class ConsoleJDBCDao {
             while (rs.next()) {
 
                 Long id = rs.getLong("id");
-                String name = rs.getString("consoleName");
+                String name = rs.getString("name");
                 double price = rs.getDouble("price");
-                String issueTime = rs.getString("issueTime");
+                Date issueTime = rs.getDate("issueTime");
                 String color = rs.getString("color");
-                String developer = rs.getString("developer");
+                Long companyId = rs.getLong("company_id");
                 String whatIncluded = rs.getString("whatIncluded");
 
 
@@ -166,7 +165,7 @@ public class ConsoleJDBCDao {
                 console.setPrice(price);
                 console.setIssueTime(issueTime);
                 console.setColor(color);
-                console.setDeveloper(developer);
+                console.setCompanyId(companyId);
                 console.setWhatIncluded(whatIncluded);
 
                 consoles.add(console);

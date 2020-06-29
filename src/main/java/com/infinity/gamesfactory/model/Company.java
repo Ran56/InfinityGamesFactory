@@ -13,7 +13,7 @@ public class Company {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "companyName")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "industry")
@@ -22,14 +22,16 @@ public class Company {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "number")
-    private long number;
-
     @Column(name = "location")
     private String location;
 
     @Column(name = "webPageAddress")
     private String webAddress;
+
+    @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    private Set<Console> consoleSet;
+
+
 
     public void setId(long id)
     {
@@ -50,8 +52,6 @@ public class Company {
     {
         this.description = description;
     }
-
-    public void setNumber(long number){this.number = number; }
 
     public void setLocation(String location)
     {
@@ -82,11 +82,6 @@ public class Company {
     public String getDescription()
     {
         return description;
-    }
-
-    public long getNumber()
-    {
-        return number;
     }
 
     public String getLocation()

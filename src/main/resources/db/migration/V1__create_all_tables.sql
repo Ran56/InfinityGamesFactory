@@ -1,45 +1,46 @@
 
-create table Companies (
-        id                  BIGSERIAL not null unique,
-	    companyName			varchar(30) not null unique,
-	    industry			varchar,
-	    description			varchar not null,
-	    number 		        BIGINT,
-	    location			varchar not null,
-	    webPageAddress		varchar not null
+CREATE TABLE Companies (
+        id                  BIGSERIAL NOT NULL UNIQUE,
+	    name			    VARCHAR (30) NOT NULL UNIQUE,
+	    industry			VARCHAR,
+	    description			VARCHAR,
+	    location			VARCHAR,
+	    webPageAddress		VARCHAR
 );
-Alter table Companies
-Add constraint companiesId_pk Primary Key(id);
+ALTER TABLE Companies
+ADD CONSTRAINT companiesId_pk PRIMARY KEY(id);
 
 
-create table Consoles(
-
-        id                  BIGSERIAL not null unique,
-	    consoleName			varchar(30) not null,
-	    price				money not null,
-	    issueTime			varchar not null,
-	    color				varchar(30) not null,
-	    developer			varchar(30) not null,
-	    whatIncluded        varchar not null
-
+CREATE TABLE Consoles(
+        id                  BIGSERIAL NOT NULL UNIQUE,
+	    name			    VARCHAR(30) NOT NULL,
+	    price				MONEY,
+	    issueTime			DATE,
+	    color				VARCHAR,
+	    company_id		    BIGINT NOT NULL,
+	    whatIncluded        VARCHAR
 );
-Alter table Consoles
-Add constraint consolesId_pk Primary key (id);
+ALTER TABLE Consoles
+ADD CONSTRAINT consolesId_pk PRIMARY KEY (id);
 
 
-Create table Games(
-        id                  BIGSERIAL not null unique,
-		gamesName		    varchar(50) not null unique,
-		price			    money not null,
-		genre			    varchar not null,
-		players             varchar not null,
-		releaseTime       	varchar not null,
-		supportPlatform   	varchar(30) not null,
-		developer		    varchar(30) not null,
-		supportedLanguages	varchar not null
+CREATE TABLE Games(
+        id                  BIGSERIAL NOT NULL UNIQUE,
+		name		        VARCHAR(50) NOT NULL UNIQUE,
+		price			    MONEY,
+		genre			    VARCHAR,
+		players             VARCHAR,
+		releaseTime       	DATE,
+		console_id   	    BIGINT NOT NULL,
+		supportedLanguages	VARCHAR
 );
-Alter table Games
-Add constraint gamesId_pk Primary key (id);
+ALTER TABLE Games
+ADD CONSTRAINT gamesId_pk PRIMARY KEY (id);
 
 
-
+ALTER TABLE Consoles
+    ADD CONSTRAINT console_company_fk FOREIGN KEY ( company_id )
+        REFERENCES Companies ( id );
+ALTER TABLE Games
+    ADD CONSTRAINT game_console_fk FOREIGN KEY ( console_id )
+        REFERENCES Consoles ( id );

@@ -8,7 +8,6 @@ public class Company {
         private String name;
         private String industry;
         private String description;
-        private long number;
         private String location;
         private String webAddress;
 
@@ -32,8 +31,6 @@ public class Company {
     {
         this.description = description;
     }
-
-        public void setNumber(long number){this.number = number; }
 
         public void setLocation(String location)
     {
@@ -64,11 +61,6 @@ public class Company {
         public String getDescription()
         {
         return description;
-        }
-
-        public long getNumber()
-        {
-        return number;
         }
 
         public String getLocation()

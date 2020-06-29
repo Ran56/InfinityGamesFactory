@@ -1,6 +1,5 @@
-package com.infinity.gamesfactory.repository;
+package com.infinity.gamesfactory.jdbc;
 
-import com.infinity.gamesfactory.jdbc.Company;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,18 +7,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyJDBCDao {
+public class GameJDBCDao {
 
-    List<Company> companies = new ArrayList();
+
+
+
+    List<Game> games = new ArrayList();
 
     static final String DBURL = "jdbc:postgresql://localhost:5431/project";
     static final String USER = "ran";
     static final String PASSWORD = "password";
 
-    private Logger logger = LoggerFactory.getLogger(CompanyJDBCDao.class);
+    private Logger logger = LoggerFactory.getLogger(GameJDBCDao.class);
 
 
-    public int save (Company company) {
+    public int save (Game game) {
+
         Connection conn = null;
         int r = 0;
         PreparedStatement ps = null;
@@ -30,14 +33,15 @@ public class CompanyJDBCDao {
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
 
             logger.info("Creating statement...");
-            String sql = "INSERT INTO Companies (companyName, industry, description, number, location, webPageAddress)" + "VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO Games (name, price, genre, players, releaseTime, console_id, supportedLanguages)" + "VALUES (?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, company.getName());
-            ps.setString(2, company.getIndustry());
-            ps.setString(3, company.getDescription());
-            ps.setLong(4, company.getNumber());
-            ps.setString(5, company.getLocation());
-            ps.setString(6, company.getWebAddress());
+            ps.setString(1, game.getName());
+            ps.setDouble(2, game.getPrice());
+            ps.setString(3, game.getGenre());
+            ps.setString(4, game.getPlayers());
+            ps.setDate(5, game.getReleaseTime());
+            ps.setLong(6, game.getConsoleId());
+            ps.setString(7, game.getSupportedLanguages());
 
             r = ps.executeUpdate();
 
@@ -65,15 +69,16 @@ public class CompanyJDBCDao {
         int r = 0;
 
         try {
-            logger.debug("Connection to a database...");
+            logger.debug("Connecting to a database...");
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
             logger.info("Creating statement...");
 
-            String sql = "DELETE FROM Companies WHERE companyName = ?";
+            String sql = "DELETE FROM Games WHERE name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,name);
 
             r = ps.executeUpdate();
+
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -90,7 +95,7 @@ public class CompanyJDBCDao {
         return r;
     }
 
-    public int update(String oldName, Company company){
+    public int update(String oldName, Game game){
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -98,18 +103,19 @@ public class CompanyJDBCDao {
 
 
         try {
-            logger.debug("Connecting to a database...");
+            logger.debug("Connection to a database...");
             conn = DriverManager.getConnection(DBURL, USER, PASSWORD);
             logger.info("Creating statement...");
-            String sql = "UPDATE Companies SET companyName=?, industry=?, description=?, number=?, location=?, webPageAddress=? WHERE companyName=?";
+            String sql = "UPDATE Games SET name=?, price=?, genre=?, players=?, releaseTime=?, console_id=?, supportedLanguages=? WHERE name=?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1,company.getName());
-            ps.setString(2,company.getIndustry());
-            ps.setString(3,company.getDescription());
-            ps.setLong(4,company.getNumber());
-            ps.setString(5,company.getLocation());
-            ps.setString(6,company.getWebAddress());
-            ps.setString(7,oldName);
+            ps.setString(1,game.getName());
+            ps.setDouble(2,game.getPrice());
+            ps.setString(3,game.getGenre());
+            ps.setString(4,game.getPlayers());
+            ps.setDate(5,game.getReleaseTime());
+            ps.setLong(6,game.getConsoleId());
+            ps.setString(7,game.getSupportedLanguages());
+            ps.setString(8,oldName);
 
             r = ps.executeUpdate();
 
@@ -129,7 +135,7 @@ public class CompanyJDBCDao {
         return r;
     }
 
-    public List<Company> getCompanies(){
+    public List<Game> getGames() {
 
         Connection conn = null;
         Statement stmt = null;
@@ -142,53 +148,49 @@ public class CompanyJDBCDao {
             logger.info("Creating statement...");
             stmt = conn.createStatement();
 
-            String sql = "SELECT * FROM Companies";
+            String sql = "SELECT * FROM Games";
             rs = stmt.executeQuery(sql);
 
             logger.info("Converting data...");
-            while(rs.next()) {
+            while (rs.next()) {
 
-                Long id  = rs.getLong("id");
-                String name = rs.getString("companyName");
-                String industry = rs.getString("industry");
-                String description = rs.getString("description");
-                long number = rs.getLong("number");
-                String location = rs.getString("location");
-                String webPageAddress = rs.getString("webPageAddress");
+                Long id = rs.getLong("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                String genre = rs.getString("genre");
+                String players = rs.getString("players");
+                Date releaseTime = rs.getDate("releaseTime");
+                Long consoleId = rs.getLong("console_id");
+                String supportedLanguages = rs.getString("supportedLanguages");
 
 
-                Company company = new Company();
-                company.setId(id);
-                company.setName(name);
-                company.setIndustry(industry);
-                company.setDescription(description);
-                company.setNumber(number);
-                company.setLocation(location);
-                company.setWebAddress(webPageAddress);
+                Game game = new Game();
+                game.setId(id);
+                game.setName(name);
+                game.setPrice(price);
+                game.setGenre(genre);
+                game.setPlayers(players);
+                game.setReleaseTime(releaseTime);
+                game.setConsoleId(consoleId);
+                game.setSupportedLanguages(supportedLanguages);
 
-                companies.add(company);
+                games.add(game);
 
             }
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
 
             try {
-                if(rs != null) rs.close();
-                if(stmt != null) stmt.close();
-                if(conn != null) conn.close();
-            }
-            catch(SQLException se) {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
                 se.printStackTrace();
             }
         }
-        return companies;
+        return games;
     }
-
-
-
 
 
 
