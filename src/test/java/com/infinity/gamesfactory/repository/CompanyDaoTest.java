@@ -2,7 +2,6 @@ package com.infinity.gamesfactory.repository;
 
 import com.infinity.gamesfactory.ApplicationBootstrap;
 import com.infinity.gamesfactory.model.Company;
-import com.infinity.gamesfactory.model.Console;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +50,7 @@ public class CompanyDaoTest {
     @Test
     public void getCompanyTest()
     {
-        int expectedNumOfComp = 4;
+        int expectedNumOfComp = 5;
         List<Company> companies = companyDAO.getCompanies();
         Assert.assertEquals(expectedNumOfComp,companies.size());
     }

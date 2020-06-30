@@ -14,47 +14,47 @@ public class CompanyService {
     @Autowired
     private CompanyDAO companyDAO;
 
-    Company save(Company company)
+    public Company save(Company company)
     {
         return companyDAO.save(company);
     }
-    List<Company> getCompanies()
+    public List<Company> getCompanies()
     {
         return companyDAO.getCompanies();
     }
-    Company getBy(Long id)
+    public Company getBy(Long id)
     {
         return companyDAO.getBy(id);
     }
-    boolean delete(Company company)
+    public boolean delete(Company company)
     {
         return companyDAO.delete(company);
     }
-    Company update(Company company)
+    public Company update(Company company)
     {
         return companyDAO.update(company);
     }
-    boolean delete(String name)
+    public boolean delete(String name)
     {
         return companyDAO.delete(name);
     }
-    List<Company> getCompaniesEager()
+    public List<Company> getCompaniesEager()
     {
         return companyDAO.getCompaniesEager();
     }
-    Company getCompanyEagerBy(Long id)
+    public Company getCompanyEagerBy(Long id)
     {
         return companyDAO.getCompanyEagerBy(id);
     }
-    Company getCompanyByName(String name)
+    public Company getCompanyByName(String name)
     {
         return companyDAO.getCompanyByName(name);
     }
-    Company getCompaniesAndConsolesBy(String name)
+    public Company getCompaniesAndConsolesBy(String name)
     {
         return companyDAO.getCompaniesAndConsolesBy(name);
     }
-    List<Object[]> getCompaniesAndConsolesAndGames(String name){return companyDAO.getCompaniesAndConsolesAndGames(name); }
+    public List<Object[]> getCompaniesAndConsolesAndGames(String name){return companyDAO.getCompaniesAndConsolesAndGames(name); }
 
 
 

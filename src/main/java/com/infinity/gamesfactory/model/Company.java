@@ -1,6 +1,8 @@
 package com.infinity.gamesfactory.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -29,6 +31,7 @@ public class Company {
     private String webAddress;
 
     @OneToMany(mappedBy = "company",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Console> consoleSet;
 
 

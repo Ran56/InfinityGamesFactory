@@ -1,6 +1,8 @@
 package com.infinity.gamesfactory.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -34,6 +36,7 @@ public class Game {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "console_id")
+    @JsonIgnore
     private Console console;
 
     public void setId(long id)

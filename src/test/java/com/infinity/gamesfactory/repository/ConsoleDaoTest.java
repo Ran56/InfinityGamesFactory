@@ -3,7 +3,6 @@ package com.infinity.gamesfactory.repository;
 import com.infinity.gamesfactory.ApplicationBootstrap;
 import com.infinity.gamesfactory.model.Company;
 import com.infinity.gamesfactory.model.Console;
-import com.infinity.gamesfactory.model.Game;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

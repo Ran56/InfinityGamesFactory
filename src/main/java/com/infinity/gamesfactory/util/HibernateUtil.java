@@ -14,11 +14,11 @@ import java.util.Properties;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory; //singleton pattern
+    private SessionFactory sessionFactory; //singleton pattern
 
-    static private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+    private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
 
-    public static SessionFactory getSessionFactory()
+    public SessionFactory getSessionFactory()
     {
         if(sessionFactory == null)
         {

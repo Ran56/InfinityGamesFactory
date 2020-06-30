@@ -1,5 +1,7 @@
 package com.infinity.gamesfactory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -34,6 +36,7 @@ public class Console {
     private Company company;
 
     @OneToMany(mappedBy = "console", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<Game> gameSet;
 
 

@@ -14,18 +14,18 @@ public class ConsoleService {
     @Autowired
     private ConsoleDao consoleDao;
 
-    Console save(Console console){return consoleDao.save(console);}
-    List<Console> getConsoles(){return consoleDao.getConsoles();}
-    Console getBy(Long id){return consoleDao.getBy(id);}
-    boolean delete(Console console){return consoleDao.delete(console);}
+    public Console save(Console console){return consoleDao.save(console);}
+    public List<Console> getConsoles(){return consoleDao.getConsoles();}
+    public Console getBy(Long id){return consoleDao.getBy(id);}
+    public boolean delete(Console console){return consoleDao.delete(console);}
 
-    Console update(Console console){return consoleDao.update(console);}
-    boolean delete(String name){return consoleDao.delete(name);}
-    List<Console> getConsolesEager(){return consoleDao.getConsolesEager();}
-    Console getConsoleEagerBy(Long id){return consoleDao.getConsoleEagerBy(id);}
-    Console getConsoleByName(String name){return consoleDao.getConsoleByName(name);}
-    Console getConsolesAndGamesBy(String name){return consoleDao.getConsolesAndGamesBy(name);}
-    List<Object[]> getCompaniesAndConsolesAndGames(String name){return consoleDao.getCompaniesAndConsolesAndGames(name);}
+    public Console update(Console console){return consoleDao.update(console);}
+    public boolean delete(String name){return consoleDao.delete(name);}
+    public List<Console> getConsolesEager(){return consoleDao.getConsolesEager();}
+    public Console getConsoleEagerBy(Long id){return consoleDao.getConsoleEagerBy(id);}
+    public Console getConsoleByName(String name){return consoleDao.getConsoleByName(name);}
+    public Console getConsolesAndGamesBy(String name){return consoleDao.getConsolesAndGamesBy(name);}
+    public List<Object[]> getCompaniesAndConsolesAndGames(String name){return consoleDao.getCompaniesAndConsolesAndGames(name);}
 
 
 

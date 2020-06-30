@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -19,10 +20,13 @@ import java.util.List;
 public class CompanyDaoImpl implements CompanyDAO {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public Company save(Company company) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
 
         try {
             transaction = session.beginTransaction();
@@ -45,7 +49,7 @@ public class CompanyDaoImpl implements CompanyDAO {
     public List<Company> getCompanies() {
         String hql = "FROM Company";
         List<Company> companies = new ArrayList<>();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
        try{
 
         Query query = session.createQuery(hql);
@@ -60,13 +64,11 @@ public class CompanyDaoImpl implements CompanyDAO {
         return companies;
     }
 
-
-
     @Override
     public boolean delete(Company company) {
         Transaction transaction = null;
         String hql = "DELETE Company c where c.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
 
         int deletedCount = 0;
         try
@@ -92,7 +94,7 @@ public class CompanyDaoImpl implements CompanyDAO {
     @Override
     public Company getBy(Long id) {
         String hql = "FROM Company c where c.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         Company company = new Company();
         try
         {
@@ -113,10 +115,10 @@ public class CompanyDaoImpl implements CompanyDAO {
     @Override
     public Company update(Company company) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
-            session.save(company);
+            session.update(company);
             transaction.commit();
             session.close();
             return company;
@@ -145,7 +147,7 @@ public class CompanyDaoImpl implements CompanyDAO {
     public Company getCompanyEagerBy(Long id) {
         String hql = "FROM Company c LEFT JOIN FETCH c.consoleSet where c.id=:Id";
         Company company = new Company();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
 
             Query<Company> query = session.createQuery(hql);
@@ -164,7 +166,20 @@ public class CompanyDaoImpl implements CompanyDAO {
 
     @Override
     public Company getCompanyByName(String name) {
-        return null;
+        String hql = "FROM Company e where e.name =:name";
+        Session session = sessionFactory.openSession();
+
+        try {
+            Query<Company> query = session.createQuery(hql);
+            query.setParameter("name", name);
+            Company result = query.uniqueResult();
+            session.close();
+            return result;
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
+            session.close();
+            return null;
+        }
     }
 
     @Override

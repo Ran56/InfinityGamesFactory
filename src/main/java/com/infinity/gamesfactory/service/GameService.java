@@ -14,18 +14,18 @@ public class GameService {
     @Autowired
     private GameDao gameDao;
 
-    Game save(Game game){return gameDao.save(game);}
-    List<Game> getGames(){return gameDao.getGames();}
-    Game getBy(Long id){return gameDao.getBy(id);}
-    boolean delete(Game game){return gameDao.delete(game);}
+    public Game save(Game game){return gameDao.save(game);}
+    public List<Game> getGames(){return gameDao.getGames();}
+    public Game getBy(Long id){return gameDao.getBy(id);}
+    public boolean delete(Game game){return gameDao.delete(game);}
 
-    Game update(Game game){return gameDao.update(game);}
-    boolean delete(String name){return gameDao.delete(name);}
-    List<Game> getGamesEager(){return gameDao.getGamesEager();}
-    Game getGameEagerBy(Long id){return gameDao.getGameEagerBy(id);}
-    Game getGameByName(String name){return gameDao.getGameByName(name);}
-    Game getGamesAndConsolesBy(String name){return gameDao.getGamesAndConsolesBy(name);}
-    List<Object[]> getCompaniesAndConsolesAndGames(String name){return gameDao.getCompaniesAndConsolesAndGames(name);}
+    public Game update(Game game){return gameDao.update(game);}
+    public boolean delete(String name){return gameDao.delete(name);}
+    public List<Game> getGamesEager(){return gameDao.getGamesEager();}
+    public Game getGameEagerBy(Long id){return gameDao.getGameEagerBy(id);}
+    public Game getGameByName(String name){return gameDao.getGameByName(name);}
+    public Game getGamesAndConsolesBy(String name){return gameDao.getGamesAndConsolesBy(name);}
+    public List<Object[]> getCompaniesAndConsolesAndGames(String name){return gameDao.getCompaniesAndConsolesAndGames(name);}
 
 
 

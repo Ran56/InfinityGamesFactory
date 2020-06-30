@@ -1,13 +1,16 @@
 package com.infinity.gamesfactory.repository;
 
+import com.infinity.gamesfactory.model.Company;
 import com.infinity.gamesfactory.model.Console;
 import com.infinity.gamesfactory.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,10 +21,13 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public Console save(Console console) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try
         {
             transaction = session.beginTransaction();
@@ -42,9 +48,9 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     @Override
     public List<Console> getConsoles() {
-        String hql = "FROM Console";
+        String hql = "FROM Console c JOIN FETCH c.company";
         List<Console> consoles = new ArrayList<>();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
 
             Query query = session.createQuery(hql);
@@ -61,8 +67,8 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     @Override
     public Console getBy(Long id) {
-        String hql = "FROM Console c where c.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "FROM Console c JOIN FETCH c.company where c.id = :Id";
+        Session session = sessionFactory.openSession();
         Console console = new Console();
         try
         {
@@ -84,7 +90,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
     public boolean delete(Console console) {
         Transaction transaction = null;
         String hql = "DELETE Console c where c.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
 
         int deletedCount = 0;
         try
@@ -110,10 +116,10 @@ public class ConsoleDaoImpl implements ConsoleDao {
     @Override
     public Console update(Console console) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
-            session.save(console);
+            session.update(console);
             transaction.commit();
             session.close();
             return console;
@@ -142,7 +148,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
     public Console getConsoleEagerBy(Long id) {
         String hql = "FROM Console c LEFT JOIN FETCH c.company where c.id=:Id";
         Console console= new Console();
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
 
             Query<Console> query = session.createQuery(hql);
@@ -160,7 +166,20 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     @Override
     public Console getConsoleByName(String name) {
-        return null;
+        String hql = "FROM Console e LEFT JOIN FETCH e.company where e.name =:name";
+        Session session = sessionFactory.openSession();
+
+        try {
+            Query<Console> query = session.createQuery(hql);
+            query.setParameter("name", name);
+            Console result = query.uniqueResult();
+            session.close();
+            return result;
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
+            session.close();
+            return null;
+        }
     }
 
     @Override
