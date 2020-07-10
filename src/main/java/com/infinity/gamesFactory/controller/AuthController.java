@@ -9,12 +9,15 @@ import com.infinity.gamesFactory.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +33,7 @@ public class AuthController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public String authentication(@RequestBody User user)
+    public ResponseEntity<String> authentication(@RequestBody User user)
     {
         logger.debug("username is "+user.getName() +" password is "+user.getPassword());
         try
@@ -40,10 +43,11 @@ public class AuthController {
             Map<String,String> map = new HashMap<>();
             map.put("token",token);
             String json = new ObjectMapper().writeValueAsString(map);
-            return json;
+            return new ResponseEntity<>(json, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            logger.error("UNAUTHORIZED",e);
+            return new ResponseEntity<>("Your username or password is incorrect", HttpStatus.UNAUTHORIZED);
         }
 
     }

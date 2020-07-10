@@ -30,7 +30,7 @@ public class JWTServiceTest {
         String token = jwtService.generateToken(u);
         String[] arr = token.split("\\.");
         Assert.assertNotNull(token);
-        Assert.assertEquals(3,arr.length);//验证两点三段式
+        Assert.assertEquals(3,arr.length);
     }
 
     @Test
