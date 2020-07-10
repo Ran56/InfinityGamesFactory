@@ -1,0 +1,62 @@
+package com.infinity.gamesFactory.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infinity.gamesFactory.model.Role;
+import com.infinity.gamesFactory.model.User;
+import com.infinity.gamesFactory.service.JWTService;
+import com.infinity.gamesFactory.service.RoleService;
+import com.infinity.gamesFactory.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping(value = "/auth")
+public class AuthController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private JWTService jwtService;
+    @Autowired
+    private RoleService roleService;
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @RequestMapping(value = "", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public String authentication(@RequestBody User user)
+    {
+        logger.debug("username is "+user.getName() +" password is "+user.getPassword());
+        try
+        {
+            User user1 = userService.getUserByCredentials(user.getName(),user.getPassword());
+            String token = jwtService.generateToken(user1);
+            Map<String,String> map = new HashMap<>();
+            map.put("token",token);
+            String json = new ObjectMapper().writeValueAsString(map);
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @RequestMapping(value = "/",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public User signUp(@RequestBody User user)
+    {
+        logger.debug("Creating user ");
+        Role role = roleService.getRoleByName("Manager");
+        user.addRole(role);
+        User user1 = userService.save(user);
+        return user1;
+
+    }
+
+}
