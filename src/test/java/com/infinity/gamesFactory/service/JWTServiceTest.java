@@ -2,6 +2,7 @@ package com.infinity.gamesFactory.service;
 
 
 import com.infinity.gamesFactory.ApplicationBootstrap;
+import com.infinity.gamesFactory.model.Role;
 import com.infinity.gamesFactory.model.User;
 import io.jsonwebtoken.Claims;
 import org.junit.Assert;
@@ -18,16 +19,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class JWTServiceTest {
     @Autowired
     private  JWTService jwtService;
+    @Autowired
+    private RoleService roleService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
     @Test
     public void generateTokenTest()
     {
+        Role role = roleService.getById(Long.valueOf(3));
         User u = new User();
         u.setId(10);
         u.setName("RyanZ");
+        u.addRole(role);
         String token = jwtService.generateToken(u);
+        logger.info(token);
         String[] arr = token.split("\\.");
         Assert.assertNotNull(token);
         Assert.assertEquals(3,arr.length);

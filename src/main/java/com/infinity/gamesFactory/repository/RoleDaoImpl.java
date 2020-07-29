@@ -117,7 +117,7 @@ public class RoleDaoImpl implements RoleDao{
 
     @Override
     public Role getById(Long id) {
-        String hql = "FROM role r where r.id=:Id";
+        String hql = "FROM Role r where r.id=:Id";
         Session session = sessionFactory.openSession();
         try
         {

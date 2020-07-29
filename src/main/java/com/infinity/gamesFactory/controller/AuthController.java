@@ -53,13 +53,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public User signUp(@RequestBody User user)
+    public ResponseEntity<User> signUp(@RequestBody User user)
     {
         logger.debug("Creating user ");
-        Role role = roleService.getRoleByName("Manager");
+        Role role = roleService.getRoleByName("user");
         user.addRole(role);
         User user1 = userService.save(user);
-        return user1;
+        return new ResponseEntity(user1,HttpStatus.OK);
 
     }
 

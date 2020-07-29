@@ -62,8 +62,28 @@ public class SecurityFilter implements Filter {
             {
                 User user = userService.getById(Long.valueOf(claims.getId()));
                 if(user == null) return statusCode;
-                statusCode = HttpServletResponse.SC_ACCEPTED;
+//                statusCode = HttpServletResponse.SC_ACCEPTED;
             }
+
+            String allowedResources = "";
+            switch (verb)
+            {
+                case "GET" : allowedResources = claims.get("allowedReadResources").toString(); break;
+                case "POST" : allowedResources = claims.get("allowedCreateResources").toString();break;
+                case "DELETE" : allowedResources = claims.get("allowedDeleteResources").toString();break;
+                case "PUT" : allowedResources = claims.get("allowedUpdateResources").toString();break;
+                case "PATCH" : allowedResources = (String)claims.get("allowedUpdateResources"); break;
+
+            }
+
+            for(String s: allowedResources.split(","))
+            {
+                if(s!="" && uri.trim().toLowerCase().startsWith(s.trim().toLowerCase())) {
+                    statusCode = HttpServletResponse.SC_ACCEPTED;
+                    break;
+                }
+            }
+
         }
         catch (Exception e)
         {
