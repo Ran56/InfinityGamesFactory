@@ -1,30 +1,24 @@
 package com.infinity.gamesFactory.config;
 
-
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
+import static org.mockito.Mockito.mock;
+
 @Configuration
-@Profile({"dev","prod"})
-public class AWSConfig {
+@Profile("unit")
+public class AWSTestConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public AmazonS3 amazonS3()
+    public AmazonS3 getAmazonS3()
     {
-        return AmazonS3ClientBuilder.standard()
-                .withCredentials(new DefaultAWSCredentialsProviderChain())
-                .withRegion(Regions.US_EAST_1)
-                .build();
+        return  mock(AmazonS3.class);
     }
-
 
 
 }
