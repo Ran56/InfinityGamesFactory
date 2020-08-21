@@ -1,5 +1,3 @@
-CREATE SEQUENCE user_id_seq START WITH 1;
-CREATE SEQUENCE role_id_seq START WITH 1;
 CREATE TABLE users (
     id              BIGSERIAL NOT NULL,
     name            VARCHAR(30) not null unique,

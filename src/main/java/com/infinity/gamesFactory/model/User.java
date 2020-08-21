@@ -1,5 +1,6 @@
 package com.infinity.gamesFactory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
@@ -32,6 +33,13 @@ public class User {
     @Column(name = "email")
     private String email;
 
+
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<FileInfo> fileInfoSet;
+
+
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -39,6 +47,15 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+
+
+    public Set<FileInfo> getFileInfoSet() {
+        return fileInfoSet;
+    }
+
+    public void setFileInfoSet(Set<FileInfo> fileInfoSet) {
+        this.fileInfoSet = fileInfoSet;
+    }
 
 
     public void addRole(Role role)

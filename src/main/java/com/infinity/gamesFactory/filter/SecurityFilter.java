@@ -2,6 +2,7 @@ package com.infinity.gamesFactory.filter;
 
 
 import com.infinity.gamesFactory.model.User;
+import com.infinity.gamesFactory.service.FileInfoService;
 import com.infinity.gamesFactory.service.JWTService;
 import com.infinity.gamesFactory.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -24,6 +25,8 @@ public class SecurityFilter implements Filter {
     private JWTService jwtService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private FileInfoService fileInfoService;
     private Logger logger = LoggerFactory.getLogger(getClass());
     private Set<String> AUTH_URI = new HashSet<>(Arrays.asList("/auth","/auth/"));
 
@@ -61,8 +64,12 @@ public class SecurityFilter implements Filter {
             if(claims.getId()!=null)
             {
                 User user = userService.getById(Long.valueOf(claims.getId()));
+
                 if(user == null) return statusCode;
 //                statusCode = HttpServletResponse.SC_ACCEPTED;
+
+                fileInfoService.userInside = user;
+
             }
 
             String allowedResources = "";

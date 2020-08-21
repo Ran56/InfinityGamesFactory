@@ -47,7 +47,7 @@ public class UserDaoTest {
         roleDao.save(role2);
 
         user = new User();
-        user.setName("June");
+        user.setName("July");
         userDao.save(user);
 
         user.addRole(role1);
@@ -68,8 +68,8 @@ public class UserDaoTest {
     @Test
     public void getUserTest()
     {
-        User user1 = userDao.getUserByName("June");
-        Assert.assertEquals(user1.getName(),"June");
+        User user1 = userDao.getUserByName("July");
+        Assert.assertEquals(user1.getName(),"July");
         Assert.assertEquals(user1.getRoles().size(),2);
     }
 
