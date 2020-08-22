@@ -45,17 +45,20 @@ public class FileInfoDaoTest {
         role.setAllowedRead(true);
         role.setAllowedUpdate(false);
         roleDao.save(role);
+
+
         user = new User();
         user.setName("June");
         userDao.save(user);
         user.addRole(role);
 
 
-        String originalS3Key = "hello";
+        String originalS3Key = "hello.txt";
         fileInfo = new FileInfo();
         fileInfo.setOriginalS3Key(originalS3Key);
         String uuid = UUID.randomUUID().toString();
-        String uuidS3Key = uuid+originalS3Key;
+        String[] nameContents = originalS3Key.split("\\.");
+        String uuidS3Key = nameContents[0]+ "-" + uuid + "." + nameContents[nameContents.length-1];
         fileInfo.setUuidS3key(uuidS3Key);
         fileInfo.setBucketName("infinity-s3-bucket-1");
         fileInfo.setUser(user);

@@ -1,6 +1,7 @@
 package com.infinity.gamesFactory.config;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -21,7 +22,9 @@ public class AWSTestConfig {
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public AmazonS3 getAmazonS3()
     {
-        return  mock(AmazonS3.class);
+        AmazonS3 amazonS3 = mock(AmazonS3.class);
+//        when(amazonS3.doesBucketExistV2(anyString())).thenReturn(true);
+        return amazonS3;
     }
 
 

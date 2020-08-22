@@ -4,8 +4,11 @@ package com.infinity.gamesFactory.service;
 import com.infinity.gamesFactory.ApplicationBootstrap;
 import com.infinity.gamesFactory.model.Role;
 import com.infinity.gamesFactory.model.User;
+import com.infinity.gamesFactory.repository.RoleDao;
 import io.jsonwebtoken.Claims;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,12 +25,34 @@ public class JWTServiceTest {
     @Autowired
     private RoleService roleService;
     private Logger logger = LoggerFactory.getLogger(getClass());
+    private Role role;
+    @Autowired
+    private RoleDao roleDao;
 
+    @Before
+    public void setUp()
+    {
+        role = new Role();
+        role.setName("Supporter");
+        role.setAllowedResource("/");
+        role.setAllowedCreate(false);
+        role.setAllowedDelete(false);
+        role.setAllowedRead(true);
+        role.setAllowedUpdate(false);
+        roleDao.save(role);
+    }
+
+
+    @After
+    public void tearDown()
+    {
+        roleDao.delete(role);
+    }
 
     @Test
     public void generateTokenTest()
     {
-        Role role = roleService.getById(Long.valueOf(3));
+
         User u = new User();
         u.setId(10);
         u.setName("RyanZ");

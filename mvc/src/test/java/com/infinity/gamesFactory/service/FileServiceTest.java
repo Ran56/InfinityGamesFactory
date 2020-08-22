@@ -55,7 +55,6 @@ public class FileServiceTest {
                 file.getName(), file.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
         String name = fileService.uploadFileUUID(bucketName,multipartFile);
         verify(amazonS3,times(1)).putObject(any(PutObjectRequest.class));
-//        Assert.assertNotNull(name);
 
     }
 

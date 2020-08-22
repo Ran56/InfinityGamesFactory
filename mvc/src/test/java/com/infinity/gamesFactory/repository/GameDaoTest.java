@@ -37,24 +37,25 @@ public class GameDaoTest {
     @Before
     public void setUp()
     {
-        company.setName("Mt");
+        company = new Company();
+        company.setName("Nintendo");
         company.setIndustry("Software development" + " "+"Computer hardware" + " "+
                 "Consumer electronics" + " "+
                 "Social networking service" + " "+
                 "Cloud computing" + " " +
                 "Video games" + " "+
                 "Internet");
-        company.setDescription("this is mt");
-        company.setLocation("Redmond, Washington");
-        company.setWebAddress("www.aa112233.com");
+        company.setDescription("is a video game company in Kyoto.");
+        company.setLocation("Kyoto,Japan");
+        company.setWebAddress("www.nintendo.com");
         companyDAO.save(company);
 
-
-        console.setName("Hellow");
+        console.setName("Nintendo Switch Lite");
         console.setCompany(company);
         consoleDao.save(console);
 
-        game.setName("Red And Blue And Yellow");
+
+        game.setName("Super Mario Odyssey");
         game.setConsole(console);
         gameDao.save(game);
     }
@@ -70,7 +71,7 @@ public class GameDaoTest {
     @Test
     public void getGames()
     {
-        int expect = 4;
+        int expect = 1;
         Assert.assertEquals(expect,gameDao.getGames().size());
     }
 

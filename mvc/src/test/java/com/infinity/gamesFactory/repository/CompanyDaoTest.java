@@ -27,17 +27,18 @@ public class CompanyDaoTest {
     @Before
     public void setUp()
     {
-        company.setName("Mt");
+        company.setName("Nintendo");
         company.setIndustry("Software development" + " "+"Computer hardware" + " "+
                 "Consumer electronics" + " "+
                 "Social networking service" + " "+
                 "Cloud computing" + " " +
                 "Video games" + " "+
                 "Internet");
-        company.setDescription("this is mt");
-        company.setLocation("Redmond, Washington");
-        company.setWebAddress("www.aaa112233.com");
+        company.setDescription("is a video game company in Kyoto.");
+        company.setLocation("Kyoto,Japan");
+        company.setWebAddress("www.nintendo.com");
         companyDAO.save(company);
+
     }
 
     @After
@@ -50,7 +51,7 @@ public class CompanyDaoTest {
     @Test
     public void getCompanyTest()
     {
-        int expectedNumOfComp = 5;
+        int expectedNumOfComp = 1;
         List<Company> companies = companyDAO.getCompanies();
         Assert.assertEquals(expectedNumOfComp,companies.size());
     }

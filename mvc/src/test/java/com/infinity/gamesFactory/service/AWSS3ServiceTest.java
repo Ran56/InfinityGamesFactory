@@ -5,6 +5,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.infinity.gamesFactory.ApplicationBootstrap;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.After;
@@ -26,16 +27,23 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= ApplicationBootstrap.class)
 public class AWSS3ServiceTest {
     @Autowired
     private AWSS3Service awsS3Service;
     private Logger logger = LoggerFactory.getLogger(getClass());
-
+    @Autowired
+    private AmazonS3 amazonS3;
 
     @Before
-    public void setUp(){}
+    public void setUp(){
+        reset(amazonS3);
+    }
 
     @After
     public void tearDown(){}
@@ -44,16 +52,18 @@ public class AWSS3ServiceTest {
     public void testCreateBucket()
     {
         String bucketName = "infinity-s3-practice";
-        Bucket bucket = awsS3Service.createBucket(bucketName);
-        Assert.assertNotNull(bucket);
+        awsS3Service.createBucket(bucketName);
+        verify(amazonS3,times(1)).createBucket(anyString());
     }
 
     @Test
     public void testDeleteBucket()
     {
         String bucketName = "infinity-s3-practice";
-        Boolean isDeleteBucket = awsS3Service.deleteBucket(bucketName);
-        Assert.assertEquals(true,isDeleteBucket);
+        awsS3Service.deleteBucket(bucketName);
+        verify(amazonS3,times(1)).deleteBucket(anyString());
+
+
     }
 
 }

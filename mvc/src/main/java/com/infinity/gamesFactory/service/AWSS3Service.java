@@ -1,6 +1,7 @@
 package com.infinity.gamesFactory.service;
 
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -62,19 +63,17 @@ public class AWSS3Service {
 
     public Boolean deleteBucket(String bucketName)
     {
-        if(amazonS3.doesBucketExistV2(bucketName)) {
+        try {
             amazonS3.deleteBucket(bucketName);
             logger.debug("bucket name: " + bucketName+" is successfully deleted");
             return true;
         }
-        else {
-            logger.debug("bucket name: " + bucketName + " failed to delete");
+        catch (AmazonServiceException e){
+            logger.debug("bucket name: " + bucketName + " failed to delete",e);
             return false;
         }
 
     }
-
-
 
 
 
