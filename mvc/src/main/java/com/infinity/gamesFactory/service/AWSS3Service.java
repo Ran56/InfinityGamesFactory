@@ -23,8 +23,8 @@ import java.util.Date;
 public class AWSS3Service {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private String awsAccessKeyId = System.getProperty("aws_access_key_id");
-    private String awsSecretKey = System.getProperty("aws_secret_access_key");
+    private String awsAccessKeyId = System.getProperty("aws.accessKeyId");
+    private String awsSecretKey = System.getProperty("aws.secretKey");
     private AmazonS3 amazonS3;
 
     public AWSS3Service (@Autowired AmazonS3 amazonS3)
