@@ -2,6 +2,7 @@ package com.infinity.gamesFactory.service;
 
 
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.infinity.gamesFactory.ApplicationBootstrap;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +25,8 @@ public class MessageServiceTest {
     private AmazonSQS sqsClient;
 
     @Before
-    public void setUp(){}
+    public void setUp(){
+    }
 
     @After
     public void tearDown()
@@ -42,6 +44,8 @@ public class MessageServiceTest {
     @Test
     public void getQueueUrlTest()
     {
+//        GetQueueUrlResult stubResult = mock(GetQueueUrlResult.class);
+//        when(sqsClient.getQueueUrl(anyString())).thenReturn(stubResult);
         messageService.getQueueUrl("123");
         verify(sqsClient,times(1)).getQueueUrl("123");
     }
