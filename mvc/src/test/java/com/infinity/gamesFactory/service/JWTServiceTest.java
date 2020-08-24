@@ -54,7 +54,7 @@ public class JWTServiceTest {
     {
 
         User u = new User();
-        u.setId(10);
+        //u.setId(10);
         u.setName("RyanZ");
         u.addRole(role);
         String token = jwtService.generateToken(u);
@@ -68,7 +68,7 @@ public class JWTServiceTest {
     public void decryptJwtTokenTest()
     {
         User u = new User();
-        u.setId(10);
+        //u.setId(10);
         u.setName("RyanZ");
         String token = jwtService.generateToken(u);
         Claims claims = jwtService.decryptJwtToken(token);

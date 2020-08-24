@@ -11,9 +11,9 @@ public class CompanyJDBCDao {
 
     List<Company> companies = new ArrayList();
 
-    static final String DBURL = "jdbc:postgresql://localhost:5431/project";
-    static final String USER = "ran";
-    static final String PASSWORD = "password";
+    static final String DBURL = System.getProperty("database.url");
+    static final String USER = System.getProperty("database.user");
+    static final String PASSWORD = System.getProperty("database.password");
 
     private Logger logger = LoggerFactory.getLogger(CompanyJDBCDao.class);
 
@@ -143,8 +143,6 @@ public class CompanyJDBCDao {
 
             logger.info("Converting data...");
             while(rs.next()) {
-
-                Long id  = rs.getLong("id");
                 String name = rs.getString("name");
                 String industry = rs.getString("industry");
                 String description = rs.getString("description");
@@ -152,7 +150,6 @@ public class CompanyJDBCDao {
                 String webPageAddress = rs.getString("webPageAddress");
 
                 Company company = new Company();
-                company.setId(id);
                 company.setName(name);
                 company.setIndustry(industry);
                 company.setDescription(description);

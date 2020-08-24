@@ -12,9 +12,9 @@ public class ConsoleJDBCDao {
 
     List<Console> consoles = new ArrayList();
 
-    static final String DBURL = "jdbc:postgresql://localhost:5431/project";
-    static final String USER = "ran";
-    static final String PASSWORD = "password";
+    static final String DBURL = System.getProperty("database.url");
+    static final String USER = System.getProperty("database.user");
+    static final String PASSWORD = System.getProperty("database.password");
 
     private Logger logger = LoggerFactory.getLogger(ConsoleJDBCDao.class);
 
@@ -160,7 +160,6 @@ public class ConsoleJDBCDao {
 
 
                 Console console = new Console();
-                console.setId(id);
                 console.setName(name);
                 console.setPrice(price);
                 console.setIssueTime(issueTime);

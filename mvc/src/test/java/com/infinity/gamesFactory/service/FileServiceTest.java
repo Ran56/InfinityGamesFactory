@@ -21,8 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= ApplicationBootstrap.class)
@@ -37,7 +36,9 @@ public class FileServiceTest {
     @Before
     public void setUp(){}
     @After
-    public void tearDown(){}
+    public void tearDown(){
+        reset(amazonS3);
+    }
 
     @Test
     public void uploadFileTest()

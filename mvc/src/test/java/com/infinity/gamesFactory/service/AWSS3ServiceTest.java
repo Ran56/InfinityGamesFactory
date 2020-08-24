@@ -42,7 +42,7 @@ public class AWSS3ServiceTest {
 
     @Before
     public void setUp(){
-   //    reset(amazonS3);
+       reset(amazonS3);
     }
 
     @After

@@ -14,9 +14,9 @@ public class GameJDBCDao {
 
     List<Game> games = new ArrayList();
 
-    static final String DBURL = "jdbc:postgresql://localhost:5431/project";
-    static final String USER = "ran";
-    static final String PASSWORD = "password";
+    static final String DBURL = System.getProperty("database.url");
+    static final String USER = System.getProperty("database.user");
+    static final String PASSWORD = System.getProperty("database.password");
 
     private Logger logger = LoggerFactory.getLogger(GameJDBCDao.class);
 
@@ -165,7 +165,6 @@ public class GameJDBCDao {
 
 
                 Game game = new Game();
-                game.setId(id);
                 game.setName(name);
                 game.setPrice(price);
                 game.setGenre(genre);
