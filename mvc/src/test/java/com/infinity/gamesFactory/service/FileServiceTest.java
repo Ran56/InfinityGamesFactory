@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,11 +31,17 @@ public class FileServiceTest {
     private FileService fileService;
     @Autowired
     private AmazonS3 amazonS3;
-    private String url = System.getProperty("URL");
+//    private String url = System.getProperty("URL");
     private String bucketName = System.getProperty("bucketName");
+    private File sampleInputFile;
 
     @Before
-    public void setUp(){}
+    public void setUp(){
+
+            URL url1 = Thread.currentThread().getContextClassLoader().getResource("testdata/testfile.txt");
+            sampleInputFile = new File(url1.getPath());
+
+    }
     @After
     public void tearDown(){
         reset(amazonS3);
@@ -43,17 +50,17 @@ public class FileServiceTest {
     @Test
     public void uploadFileTest()
     {
-        fileService.uploadFile(new File("hello.txt"));
+        fileService.uploadFile(sampleInputFile);
         verify(amazonS3,times(1)).putObject(any(PutObjectRequest.class));
     }
 
 
     @Test
     public void uploadFileTestUUID() throws IOException {
-        File file = new File(url);
-        FileInputStream fileInputStream = new FileInputStream(file);
+
+        FileInputStream fileInputStream = new FileInputStream(sampleInputFile);
         MultipartFile multipartFile = new MockMultipartFile(
-                file.getName(), file.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+                sampleInputFile.getName(), sampleInputFile.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
         String name = fileService.uploadFileUUID(bucketName,multipartFile);
         verify(amazonS3,times(1)).putObject(any(PutObjectRequest.class));
 
