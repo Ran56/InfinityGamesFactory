@@ -31,7 +31,7 @@ public class MessageServiceTest {
     @After
     public void tearDown()
     {
-        reset(sqsClient);
+        //reset(sqsClient);
     }
 
     @Test
@@ -44,8 +44,7 @@ public class MessageServiceTest {
     @Test
     public void getQueueUrlTest()
     {
-//        GetQueueUrlResult stubResult = mock(GetQueueUrlResult.class);
-//        when(sqsClient.getQueueUrl(anyString())).thenReturn(stubResult);
+
         messageService.getQueueUrl("123");
         verify(sqsClient,times(1)).getQueueUrl("123");
     }
