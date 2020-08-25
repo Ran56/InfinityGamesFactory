@@ -25,6 +25,8 @@ public class MessageService {
     public MessageService(@Autowired AmazonSQS sqsClient)
     {
         this.sqsClient = sqsClient;
+        logger.info("sqsclient"+sqsClient.toString());
+        logger.info("sqsclient"+queueName);
         this.queueUrl = getQueueUrl(queueName);
 
     }
