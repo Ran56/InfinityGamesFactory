@@ -58,17 +58,7 @@ public class HibernateUtil {
 
 
     }
-//    public static void main(String[] args)
-//    {
-//        SessionFactory sf = HibernateUtil.getSessionFactory();
-//        SessionFactory sf2 = HibernateUtil.getSessionFactory();
-//        logger.info("success generate sf" + sf.hashCode());
-//        logger.info("success generate sf" + sf2.hashCode());
-//        Session s = sf.openSession();
-//        s.close();
-//        Session s1 = sf.openSession();
-//        s1.close();
-//    }
+
 
 
 

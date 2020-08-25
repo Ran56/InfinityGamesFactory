@@ -25,3 +25,7 @@ Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrati
 mvn clean compile flyway:migrate
 ```
 
+```
+mvn clean compile flyway:migrate -Dxxx
+```
+

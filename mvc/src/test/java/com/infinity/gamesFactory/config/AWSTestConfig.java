@@ -23,7 +23,6 @@ public class AWSTestConfig {
     public AmazonS3 getAmazonS3()
     {
         AmazonS3 amazonS3 = mock(AmazonS3.class);
-//        when(amazonS3.doesBucketExistV2(anyString())).thenReturn(true);
         return amazonS3;
     }
 
