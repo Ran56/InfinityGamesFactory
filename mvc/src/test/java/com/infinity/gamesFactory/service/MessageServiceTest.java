@@ -31,15 +31,14 @@ public class MessageServiceTest {
     @After
     public void tearDown()
     {
-        reset(sqsClient);
     }
 
-//    @Test
-//    public void sendMessageTest()
-//    {
-//        messageService.sendMessage("test",1);
-////        assertTrue(false);
-//    }
+    @Test
+    public void sendMessageTest()
+    {
+        messageService.sendMessage("test",1);
+//        assertTrue(false);
+    }
 
     @Test
     public void getQueueUrlTest()
