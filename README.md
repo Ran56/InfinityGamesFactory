@@ -26,5 +26,6 @@ mvn clean compile flyway:migrate
 ```
 
 ```
-mvn clean compile flyway:migrate -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.name=test0825 -Ddatabase.port=5432 -Ddatabase.user=ran -Ddatabase.password=password -Ddatabase.url=172.17.0.3 -q```
+mvn clean compile flyway:migrate -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.name=test0825 -Ddatabase.port=5432 -Ddatabase.user=ran -Ddatabase.password=password -Ddatabase.url=172.17.0.3 -q
+```
 
