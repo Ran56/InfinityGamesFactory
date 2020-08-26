@@ -1,6 +1,7 @@
 package com.infinity.gamesFactory.filter;
 
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.infinity.gamesFactory.model.User;
 import com.infinity.gamesFactory.service.FileInfoService;
 import com.infinity.gamesFactory.service.JWTService;
@@ -72,8 +73,10 @@ public class SecurityFilter implements Filter {
 
                 if(user == null) return statusCode;
 //                statusCode = HttpServletResponse.SC_ACCEPTED;
+                //request set userid
+                request.setAttribute("userInfo",user);
 
-                fileInfoService.userInside = user;
+
 
             }
 

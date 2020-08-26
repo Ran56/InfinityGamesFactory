@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -47,62 +48,50 @@ public class FileController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public URL getFileUrl(@RequestParam("bucketName") String bucketName, @RequestParam("s3Key") String s3Key)
     {
-//        ServletRequest request =
-//        User user = fileInfoService.getUserOfFile(request);
         return fileService.getFileURL(bucketName,s3Key);
     }
 
 
     @RequestMapping(value = "/fileInfo",method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String uploadFileAndSaveFileInfo(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public String uploadFileAndSaveFileInfo(HttpServletRequest request,@RequestParam("file") MultipartFile multipartFile) throws IOException {
         logger.debug("The file name is: "+multipartFile.getOriginalFilename());
 
-        User user = fileInfoService.userInside;
+        User user = (User) request.getAttribute("userInfo");
         String originalName = multipartFile.getOriginalFilename();
-        List<FileInfo> fileInfoList = fileInfoService.getFileInfoByName(originalName,user);
-        FileInfo fileInfoResult = null;
-        for(FileInfo fileInfo: fileInfoList)
-            if(fileInfo.getUser().getId()==user.getId())
-            {
-                fileInfoResult = fileInfo;
-                break;
-            }
-        if(fileInfoResult!=null)
-                {
-                    fileService.deleteFileInfo(originalName);
-                    amazonS3.deleteObject(bucketName,fileInfoResult.getUuidS3key());
-                }
+        FileInfo fileInfo = fileInfoService.getFileInfoByUser(user,originalName);
+        if(fileInfo==null) return null;
 
-        return fileService.uploadFileUUIDAndSaveFileInfo(bucketName,multipartFile);
+        fileService.deleteFileInfo(user,originalName);
+        amazonS3.deleteObject(bucketName,fileInfo.getUuidS3key());
+                //not delete instead update
+
+        return fileService.uploadFileUUIDAndSaveFileInfo(user,bucketName,multipartFile);
 
     }
 
     @RequestMapping(value = "/fileInfo",method = RequestMethod.GET)
-    public ResponseEntity<URL> getFileUrlByFileInfo(@RequestParam("uuidOrOriginalName") String uuidOrOriginalName)
+    public ResponseEntity<URL> getFileUrlByFileInfo(HttpServletRequest request,@RequestParam("uuidOrOriginalName") String uuidOrOriginalName)
     {
-        User user = fileInfoService.userInside;
-        List<FileInfo> fileInfoList = fileInfoService.getFileInfoByName(uuidOrOriginalName,user);
-        if(fileInfoList == null) return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        User user = (User) request.getAttribute("userInfo");
+        //find current user information
+        // request.getHeader("userId")
+        // findFileInfoByUserId
+        // if(null) create new fileInfo
+        //else update fileInfo
+        FileInfo fileInfo = fileInfoService.getFileInfoByUser(user,uuidOrOriginalName);
+        if(fileInfo == null) return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 
-        FileInfo fileInfoResult = null;
-        for(FileInfo fileInfo: fileInfoList)
-            if(fileInfo.getUser().getId()==user.getId())
-                {
-                   fileInfoResult = fileInfo;
-                   break;
-                }
-        if(fileInfoResult==null) return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        String s3Key = fileInfoResult.getUuidS3key();
-        String bucketNameOfFileInfo = fileInfoResult.getBucketName();
+        String s3Key = fileInfo.getUuidS3key();
+        String bucketNameOfFileInfo = fileInfo.getBucketName();
         return new ResponseEntity<>(fileService.getFileURL(bucketNameOfFileInfo,s3Key),HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/fileInfo",method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteFileInfo(@RequestParam("uuidOrOriginalName") String uuidOrOriginalName)
+    public ResponseEntity<Boolean> deleteFileInfo(HttpServletRequest request,@RequestParam("uuidOrOriginalName") String uuidOrOriginalName)
     {
-
-        Boolean result = fileService.deleteFileInfo(uuidOrOriginalName);
+        User user = (User) request.getAttribute("userInfo");
+        Boolean result = fileService.deleteFileInfo(user,uuidOrOriginalName);
         if(result==false)return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(true,HttpStatus.OK);
 

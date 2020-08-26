@@ -18,7 +18,7 @@ public interface FileInfoDao {
     List<FileInfo> getFileInfosEager();
     FileInfo getFileInfoEagerById(Long id);
     List<FileInfo> getFileInfoByName(String uuidOrOriginalName, User user);
-
+    FileInfo getFileInfoByUser(User user,String uuidOrOriginalName);
 
 
 }

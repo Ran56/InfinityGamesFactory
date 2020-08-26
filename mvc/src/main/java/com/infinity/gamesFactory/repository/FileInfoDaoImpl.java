@@ -184,4 +184,25 @@ public class FileInfoDaoImpl implements FileInfoDao{
             return null;
         }
     }
+
+    @Override
+    public FileInfo getFileInfoByUser(User user,String uuidOrOriginalName) {
+        String hql = "FROM FileInfo f LEFT JOIN FETCH f.user where f.user=:user and f.originalS3Key=:uuidOrOriginalName or f.uuidS3key=:uuidOrOriginalName";
+        FileInfo fileInfo= new FileInfo();
+        Session session = sessionFactory.openSession();
+        try{
+
+            Query<FileInfo> query = session.createQuery(hql);
+            query.setParameter("user",user);
+            query.setParameter("uuidOrOriginalName",uuidOrOriginalName);
+            fileInfo = query.uniqueResult();
+            session.close();
+        }
+        catch(Exception e)
+        {
+            logger.error("Fail to close session"+e);
+            session.close();
+        }
+        return fileInfo;
+    }
 }

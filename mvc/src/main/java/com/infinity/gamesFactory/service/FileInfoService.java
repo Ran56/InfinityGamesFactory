@@ -23,19 +23,15 @@ public class FileInfoService {
     @Autowired
     private UserService userService;
 
-    public User userInside;
-
     public FileInfo save(FileInfo fileInfo){return fileInfoDao.save(fileInfo);}
     public List<FileInfo> getFileInfos(){return fileInfoDao.getFileInfos();}
     public FileInfo getBy(Long id){return fileInfoDao.getBy(id);}
     public boolean delete(FileInfo fileInfo){return fileInfoDao.delete(fileInfo);}
 
     public FileInfo update(FileInfo fileInfo){return fileInfoDao.update(fileInfo);}
-//    public boolean delete(String originalS3Key){return fileInfoDao.delete(originalS3Key);}
-//    public List<FileInfo> getFileInfosEager(){return fileInfoDao.getFileInfosEager();}
     public FileInfo getFileInfoEagerById(Long id){return fileInfoDao.getFileInfoEagerById(id);}
     public List<FileInfo> getFileInfoByName(String originalS3Key,User user){return fileInfoDao.getFileInfoByName(originalS3Key,user);}
-
+    public FileInfo getFileInfoByUser(User user,String uuidOrOriginalName){return fileInfoDao.getFileInfoByUser(user,uuidOrOriginalName);}
 
 
 

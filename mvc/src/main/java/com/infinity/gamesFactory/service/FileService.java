@@ -75,7 +75,7 @@ public class FileService {
     }
 
 
-    public String uploadFileUUIDAndSaveFileInfo(String bucketName,MultipartFile multipartFile) throws IOException {
+    public String uploadFileUUIDAndSaveFileInfo(User user,String bucketName,MultipartFile multipartFile) throws IOException {
 
         String uuid = UUID.randomUUID().toString();
         String fileName = multipartFile.getOriginalFilename();
@@ -94,31 +94,21 @@ public class FileService {
         fileInfo.setOriginalS3Key(fileName);
         fileInfo.setBucketName(bucketName);
         fileInfo.setUuidS3key(uuidName);
-        fileInfo.setUser(fileInfoService.userInside);
+        fileInfo.setUser(user);
         fileInfoDao.save(fileInfo);
-        fileInfoService.userInside = null;
 
         return uuidName;
 
     }
 
 
-    public Boolean deleteFileInfo(String uuidOrOriginalName)
+    public Boolean deleteFileInfo(User user,String uuidOrOriginalName)
     {
-        User user = fileInfoService.userInside;
-        List<FileInfo> fileInfoList = fileInfoService.getFileInfoByName(uuidOrOriginalName,user);
-        if(fileInfoList == null) return false;
 
-        FileInfo fileInfoResult = new FileInfo();
-        for(FileInfo fileInfo: fileInfoList)
-            if(fileInfo.getUser().getId()==user.getId())
-            {
-                fileInfoResult = fileInfo;
-                break;
-            }
-        if(fileInfoResult==null) return false;
-        String s = new String();
-        return fileInfoService.delete(fileInfoResult);
+        FileInfo fileInfo = fileInfoService.getFileInfoByUser(user,uuidOrOriginalName);
+         if(fileInfo==null) return false;
+
+        return fileInfoService.delete(fileInfo);
 
     }
 
