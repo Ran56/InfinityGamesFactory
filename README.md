@@ -70,11 +70,11 @@ mvn clean compile package -DskipTests=true
 ```
 sh startup.sh
 ```
-##API Guide
+## API Guide
 
 
-###Reference Demo
-####User sign up
+### Reference Demo
+#### User sign up
 
 ```
 POST - http://localhost:8080/auth/
@@ -118,7 +118,7 @@ Response Body
 Sign Up Screenshot at Postman
 ![Signup](../../../Desktop/Signup.png)
 
-####User Login to get JWT (Json Web Token)
+#### User Login to get JWT (Json Web Token)
 ```
 POST - http://localhost:8080/auth
 ```
@@ -139,7 +139,7 @@ Response Body
 Login Screenshot at Postman
 ![Login](../../../Desktop/Login.png)
 
-####Upload files
+#### Upload files
 Upload files with user information and token to AWS S3 (Simple Storage Service), FileService will automatically generate an UUID (Universally Unique Identifier) attached to the end of the file original name to make it better to distinguish files in AWS S3
 ```
 POST - http://localhost:8080/files/fileInfo
@@ -151,7 +151,7 @@ fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt
 Upload files Screenshot at Postman
 ![Login](../../../Desktop/fileInfo.png)
 
-####Get files
+#### Get files
 Get files with user information and token, only input a original file name, or a name-uuid FileService created
 ```
 GET - http://localhost:8080/files/fileInfo?uuidOrOriginalName=fileInfo.txt
