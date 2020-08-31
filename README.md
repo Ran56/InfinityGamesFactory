@@ -12,7 +12,7 @@ This application with SpringMVC design pattern is developed in Spring Framework 
         2. One console can have various games
         3. One user can have multiple roles
         4. One role can contain many users
-        5. Only admin role have permission to promote or demote users
+        5. Only admin role have permission to promote or demote roles of users
     3. Permission for each role:
           1. allowed_resource: what resources the role allowed to access
           2. allowed_create: whether or not could create resources
@@ -31,8 +31,8 @@ This application with SpringMVC design pattern is developed in Spring Framework 
     4. Apply Hibernate to do object-relational mapping to model
     5. Implement application layer (persistence layer, business service and controller)    
     6. Verify the logic of methods by unit test and test Restful APIs by using Postman
-    7. After listening and handling messages of AWS SQS (Simple Queue Service), sending confirmation message to the client by using Twilio
-    8. Use AWS S3 (Simple Storage Service) as storage service and implement Java Message Service to handle messages with AWS SQS (Simple Queue Service) 
+    7. Use AWS S3 (Simple Storage Service) as storage service and implement Java Message Service to handle messages with AWS SQS (Simple Queue Service)
+    8. After listening and handling messages from AWS SQS (Simple Queue Service), sending confirmation message to the client by using Twilio
     9. Transform local database to AWS cloud and deploy the project on AWS by CI/CD.
     
 ## Configure local environment
@@ -60,7 +60,6 @@ cd InfinityGamesFactory/
 -DbucketName=${BUCKET}"
 -Dspring.profiles.active=dev"
 -DqueueName=${QUEUE}"
--Djms.queue.name=${QUEUE}"
 ```
 ### Migrate database schema
 Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrations), find all [migration schema](src/main/resources/db/migration)
