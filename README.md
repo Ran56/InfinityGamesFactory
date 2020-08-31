@@ -140,7 +140,7 @@ Login Screenshot at Postman
 ![Login](READMEScreenshot/Login.png)
 
 #### Upload files
-Upload files with user information and token to AWS S3 (Simple Storage Service), FileService will automatically generate an UUID (Universally Unique Identifier) attached to the end of the file original name to make it better to distinguish files in AWS S3
+After giving the user permission to upload and download files, Upload files with user information and token to AWS S3 (Simple Storage Service), FileService will automatically generate an UUID (Universally Unique Identifier) attached to the end of the file original name to make it better to distinguish files in AWS S3
 ```
 POST - http://localhost:8080/files/fileInfo
 ```
