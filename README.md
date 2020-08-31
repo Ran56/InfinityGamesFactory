@@ -1,7 +1,7 @@
 # Infinity Games Factory
 
 ## Overview
-To help you make a better decision about whether to buy the game you are interested in, the details of all the current most popular video games with various categories are gathered here. It only takes you a few minutes to get the game information you want and figures out if meets your needs!!
+To help you make a better decision about whether to buy the game you are interested in, the details of all the current most popular video games with various categories are gathered here. It only takes you a few minutes to look through the game information you want and figures out if meets your needs!!
 
 ### Project Technical Overview
 This application with SpringMVC design pattern is developed in Spring Framework by using Spring Boot, Hibernate, Flyway, Spring RESTful web services, Postman, Maven, Git, PostgresSql, Docker, JWT, Amazon SQS, and Amazon S3.
@@ -12,6 +12,14 @@ This application with SpringMVC design pattern is developed in Spring Framework 
         2. One console can have various games
         3. One user can have multiple roles
         4. One role can contain many users
+        5. Only admin role have permission to promote or demote users
+    3. Permission for each role:
+          1. allowed_resource: what resources the role allowed to access
+          2. allowed_create: whether or not could create resources
+          3. allowed_delete: whether or not could delete resources
+          4. allowed_update: whether or not could change resources
+          5. allowed_read: whether or not could read resources
+          6. allow Admin role to operate and access all resources 
 * Structure
     1. root
         1. mvc: model, view, controller
@@ -19,12 +27,13 @@ This application with SpringMVC design pattern is developed in Spring Framework 
 * Development Approaches
     1. Create User, Role, Company, Console, and Game
     2. Pull and run PostgresSQL images to start container by using Docker
-    3. Migrates database schema by Flyway
+    3. Migrate database schema by Flyway
     4. Apply Hibernate to do object-relational mapping to model
     5. Implement application layer (persistence layer, business service and controller)    
     6. Verify the logic of methods by unit test and test Restful APIs by using Postman
-    7. Use AWS S3 (Simple Storage Service) as storage service and implement Java Message Service to handle messages with AWS SQS (Simple Queue Service) 
-    8. Transform local database to AWS cloud and deploy the project on AWS by CI/CD.
+    7. After listening and handling messages of AWS SQS (Simple Queue Service), sending confirmation message to the client by using Twilio
+    8. Use AWS S3 (Simple Storage Service) as storage service and implement Java Message Service to handle messages with AWS SQS (Simple Queue Service) 
+    9. Transform local database to AWS cloud and deploy the project on AWS by CI/CD.
     
 ## Configure local environment
 ### Setup local database with docker
@@ -72,9 +81,7 @@ sh startup.sh
 ```
 ## API Guide
 
-
-### Reference Demo
-#### User sign up
+### User sign up
 
 ```
 POST - http://localhost:8080/auth/
@@ -118,7 +125,7 @@ Response Body
 Sign Up Screenshot at Postman
 ![Sign up](READMEScreenshot/Signup.png)
 
-#### User Login to get JWT (Json Web Token)
+### User Login to get JWT (Json Web Token)
 ```
 POST - http://localhost:8080/auth
 ```
@@ -139,7 +146,7 @@ Response Body
 Login Screenshot at Postman
 ![Login](READMEScreenshot/Login.png)
 
-#### Upload files
+### Upload files to AWS S3
 After giving the user permission to upload and download files, Upload files with user information and token to AWS S3 (Simple Storage Service), FileService will automatically generate an UUID (Universally Unique Identifier) attached to the end of the file original name to make it better to distinguish files in AWS S3
 ```
 POST - http://localhost:8080/files/fileInfo
@@ -151,7 +158,7 @@ fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt
 Upload files Screenshot at Postman
 ![upload](READMEScreenshot/fileInfo.png)
 
-#### Get files
+### Get files from AWS S3
 Get files with user information and token, only input a original file name, or a name-uuid FileService created
 ```
 GET - http://localhost:8080/files/fileInfo?uuidOrOriginalName=fileInfo.txt

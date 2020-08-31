@@ -63,7 +63,6 @@ public class FileController {
 
         fileService.deleteFileInfo(user,originalName);
         amazonS3.deleteObject(bucketName,fileInfo.getUuidS3key());
-                //not delete instead update
 
         return fileService.uploadFileUUIDAndSaveFileInfo(user,bucketName,multipartFile);
 
