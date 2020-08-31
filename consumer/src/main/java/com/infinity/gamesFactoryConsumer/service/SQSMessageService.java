@@ -22,7 +22,7 @@ public class SQSMessageService {
     @Autowired
     private AmazonSQS sqsClient;
 
-    @Value("${jms.queue.name}")
+    @Value("${queueName}")
     private String queueName;
 
 
