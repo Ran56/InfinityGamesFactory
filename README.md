@@ -27,17 +27,17 @@ This application with SpringMVC design pattern is developed in Spring Framework 
     8. Transform local database to AWS cloud and deploy the project on AWS by CI/CD.
     
 ## Configure local environment
-### 1.Setup local database with docker
+### Setup local database with docker
 Refer to postgres docker [image](https://hub.docker.com/_/postgres) for environment option.
 ```
 docker run --name projectDB -e POSTGRES_USER=${username} -e POSTGRES_PASSWORD=${password} -e POSTGRES_DB=${databaseName} -p 5431:5432 -d postgres
 ```
-### 2.Clone and switch to the repository
+### Clone and switch to the repository
 ```
 git clone https://github.com/Ran56/InfinityGamesFactory.git
 cd InfinityGamesFactory/
 ```
-### 3.Environment properties configuration
+### Environment properties configuration
 ```
 -Dlogging.level.com.infinity=DEBUG
 -Ddatabase.driver=org.postgresql.Driver
@@ -53,20 +53,20 @@ cd InfinityGamesFactory/
 -DqueueName=${QUEUE}"
 -Djms.queue.name=${QUEUE}"
 ```
-### 4.Migrate database schema
+### Migrate database schema
 Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrations), find all [migration schema](src/main/resources/db/migration)
 ```
 mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Ddatabase.name=${DB_NAME}
 ```
-### 5.Testing
+### Testing
 ```
 mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=Aa123456 -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
 ```
-### 6.Create ```war``` package file in ```target``` directory
+### Create ```war``` package file in ```target``` directory
 ```
 mvn clean compile package -DskipTests=true
 ```
-### 7.Deploy ```war``` file to [Apache Tomcat](http://tomcat.apache.org/), and run it
+### Deploy ```war``` file to [Apache Tomcat](http://tomcat.apache.org/), and run it
 ```
 sh startup.sh
 ```
