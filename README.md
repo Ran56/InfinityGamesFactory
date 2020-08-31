@@ -116,7 +116,7 @@ Response Body
 ```
 
 Sign Up Screenshot at Postman
-![Sign up](../../../Desktop/Signup.png)
+![Sign up](READMEScreenshot/Signup.png)
 
 #### User Login to get JWT (Json Web Token)
 ```
@@ -137,7 +137,7 @@ Response Body
 ```
 
 Login Screenshot at Postman
-![Login](../../../Desktop/Login.png)
+![Login](READMEScreenshot/Login.png)
 
 #### Upload files
 Upload files with user information and token to AWS S3 (Simple Storage Service), FileService will automatically generate an UUID (Universally Unique Identifier) attached to the end of the file original name to make it better to distinguish files in AWS S3
@@ -149,7 +149,7 @@ Response Body
 fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt
 ```
 Upload files Screenshot at Postman
-![upload](../../../Desktop/fileInfo.png)
+![upload](READMEScreenshot/fileInfo.png)
 
 #### Get files
 Get files with user information and token, only input a original file name, or a name-uuid FileService created
@@ -161,7 +161,7 @@ Response Body
 "https://infinity-s3-bucket-1.s3.amazonaws.com/fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200831T031015Z&X-Amz-SignedHeaders=host&X-Amz-Expires=71999&X-Amz-Credential=AKIAVTI4FL2J5ALRMVEO%2F20200831%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=07798d1e885505ac5e428964aea0538c6ea6cf3b18baf2152d67e74008f285a8"
 ```
 Get files with original name Screenshot at Postman
-![getByOriginalName](../../../Desktop/getByOriginalName.png)
+![getByOriginalName](READMEScreenshot/getByOriginalName.png)
 
 ```
 GET - http://localhost:8080/files/fileInfo?uuidOrOriginalName=fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt
@@ -171,4 +171,4 @@ Response Body
 "https://infinity-s3-bucket-1.s3.amazonaws.com/fileInfo-27f280fb-aeea-4a24-ade6-e385804cffce.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200831T032423Z&X-Amz-SignedHeaders=host&X-Amz-Expires=71999&X-Amz-Credential=AKIAVTI4FL2J5ALRMVEO%2F20200831%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3b21795f0f335454c04b4a4f81f15bca57ffe31d177bf5acc65e07d6afe1ceae"
 ```
 Get files with name-uuid Screenshot at Postman
-![getByname-uuid](../../../Desktop/getByname-uuid.png)
+![getByname-uuid](READMEScreenshot/getByname-uuid.png)
