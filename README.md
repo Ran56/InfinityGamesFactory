@@ -62,7 +62,7 @@ cd InfinityGamesFactory/
 -DqueueName=${QUEUE}"
 ```
 ### Migrate database schema
-Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrations), find all [migration schema](src/main/resources/db/migration)
+Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrations), find all [migration schema](mvc/src/main/resources/db/migration)
 ```
 mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Ddatabase.name=${DB_NAME}
 ```
