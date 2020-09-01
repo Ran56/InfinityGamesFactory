@@ -190,17 +190,17 @@ What steps you should finish before you work with DevOps engineer
 ### Upload code to GitHub
 Make sure the source code on the ```GitHub``` is the latest or runnable version all the time  
 
-### Pull ```Maven``` image and run container for testing by using ```Docker```
+### Pull Maven image and run container for testing by using Docker
 ```
 docker pull maven:3.6.0-jdk-8
 docker run -it maven:3.6.0-jdk-8 /bin/bash
 ```
-### Pull complete project from ```GitHub```
+### Pull complete project from GitHub
 ```
 git clone ${REPOSITORY_URL}
 ```
 
-### Migrate schema by using ```Flyway``` 
+### Migrate schema by using Flyway
 ```
 mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Ddatabase.name=${DB_NAME}
 ```
@@ -213,11 +213,11 @@ docker inspect ${database_container_id} | grep "IPAddress"
 ```
 mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=Aa123456 -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
 ```
-### Package ```war``` file
+### Package .war file
 ```
 mvn clean compile package -DskipTests=true
 ```
-### Build ```image```
+### Build image
 ```
 docker build -t ${image_name}:${tag} .
 ```
