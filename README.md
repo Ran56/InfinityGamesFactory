@@ -218,6 +218,8 @@ mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialec
 mvn clean compile package -DskipTests=true
 ```
 ### Build image
+Put ```war``` file, setenv.sh file and Dockerfile together to build ```image```
+
 ```
 docker build -t ${image_name}:${tag} .
 ```
