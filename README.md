@@ -205,7 +205,7 @@ git clone ${REPOSITORY_URL}
 mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Ddatabase.name=${DB_NAME}
 ```
 ### Find IP address of database container
-Since running the project in the container instead of local environment, the IP address of ```PostgreSQL``` container is required to map database container port
+Since running the project in the container instead of local environment, the IP address of ```PostgreSQL``` container is required to map port
 ```
 docker inspect ${database_container_id} | grep "IPAddress"
 ```
