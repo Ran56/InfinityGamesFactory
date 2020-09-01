@@ -1,19 +1,19 @@
 # Infinity Games Factory
 
 ## Overview
-To help you make a better decision about whether to buy the game you are interested in, the details of all the current most popular video games with various categories are gathered here. It only takes you a few minutes to look through the game information you want and figures out if meets your needs!!
+To help you make a better decision about whether to buy the game you are interested in, the details of all the current most popular video games with various categories are gathered here. It only takes you a few minutes to look through the game information you want and figures out if meets your needs!
 
 ### Project Technical Overview
-This application with SpringMVC design pattern is developed in Spring Framework by using Spring Boot, Hibernate, Flyway, Spring RESTful web services, Postman, Maven, Git, PostgresSql, Docker, JWT, Amazon SQS, and Amazon S3.
+This application with SpringMVC design pattern is developed in Spring Framework by using Spring Boot, Hibernate, Flyway, Spring RESTful web services, Postman, Maven, Git, PostgresSql, Docker, JWT, Amazon SQS, and Amazon S3
 * Business Rules
     1. Objects: Company, Console, Game, User, Role
-    2. Relationships:
+    2. Relationships
         1. One company can have several consoles
         2. One console can have various games
         3. One user can have multiple roles
         4. One role can contain many users
         5. Only admin role have permission to promote or demote roles of users
-    3. Permission for each role:
+    3. Permission for each role
           1. allowed_resource: what resources the role allowed to access
           2. allowed_create: whether or not could create resources
           3. allowed_delete: whether or not could delete resources
@@ -37,7 +37,7 @@ This application with SpringMVC design pattern is developed in Spring Framework 
     
 ## Configure local environment
 ### Setup local database with docker
-Refer to postgres docker [image](https://hub.docker.com/_/postgres) for environment option.
+Refer to postgres docker [image](https://hub.docker.com/_/postgres) for environment option
 ```
 docker run --name projectDB -e POSTGRES_USER=${username} -e POSTGRES_PASSWORD=${password} -e POSTGRES_DB=${databaseName} -p 5431:5432 -d postgres
 ```
@@ -181,14 +181,14 @@ Get files with name-uuid Screenshot at Postman
 
 ## CI/CD (Continuous Integration / Continuous Delivery)
 What steps you should finish before you work with DevOps engineer
-   1. Push source code to ```GitHub``` repository
+   1. Push source code to GitHub repository
    2. Ensure all unit tests pass successfully in specify docker container
    3. create ```war```  package file in specify docker container
    4. Build Docker ```image``` with ```war``` file, setenv.sh and Dockerfile
    5. Build and run container from ```image``` successfully
    
 ### Upload code to GitHub
-Make sure the source code on the ```GitHub``` is the latest or runnable version all the time  
+Make sure the source code on the GitHub is the latest or runnable version all the time  
 
 ### Pull Maven image and run container for testing by using Docker
 ```
@@ -200,7 +200,7 @@ docker run -it maven:3.6.0-jdk-8 /bin/bash
 git clone ${REPOSITORY_URL}
 ```
 
-### Migrate schema by using Flyway
+### Migrate schema by using ```Flyway```
 ```
 mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Ddatabase.name=${DB_NAME}
 ```
@@ -213,11 +213,11 @@ docker inspect ${database_container_id} | grep "IPAddress"
 ```
 mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=Aa123456 -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
 ```
-### Package .war file
+### Package ```war``` file
 ```
 mvn clean compile package -DskipTests=true
 ```
-### Build image
+### Build ```image```
 Put ```war``` file, setenv.sh file and Dockerfile together to build ```image```
 
 ```
