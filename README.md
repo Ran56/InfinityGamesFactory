@@ -190,7 +190,7 @@ What steps you should finish before you work with DevOps engineer
 ### Upload code to GitHub
 Make sure the source code on the GitHub is the latest or runnable version all the time  
 
-### Pull ```Maven``` image and run container for testing by using Docker
+### Pull ```Maven``` image and run container for testing by using ```Docker```
 ```
 docker pull maven:3.6.0-jdk-8
 docker run -it maven:3.6.0-jdk-8 /bin/bash
