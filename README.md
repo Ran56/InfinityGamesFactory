@@ -229,3 +229,7 @@ docker build -t ${image_name}:${tag} .
 docker run -e ENV=VALUE ${image_name}:${tag}
 ```
 
+## About
+* [GitHub](https://github.com/Ran56)
+
+* [LinkedIn](https://www.linkedin.com/in/ran-zhang-16baab1a0/)
