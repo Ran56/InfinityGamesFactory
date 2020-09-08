@@ -51,15 +51,15 @@ cd InfinityGamesFactory/
 -Dlogging.level.com.infinity=DEBUG
 -Ddatabase.driver=org.postgresql.Driver
 -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect
--Ddatabase.url=${DB_URL}"
--Ddatabase.name=${DB_NAME}"
--Ddatabase.port=${DB_PORT}"
--Ddatabase.user=${DB_USER}"
--Ddatabase.password=${DB_PASSWORD}"
--Dsecret.key=AaBbCc123"
--DbucketName=${BUCKET}"
--Dspring.profiles.active=dev"
--DqueueName=${QUEUE}"
+-Ddatabase.url=${DB_URL}
+-Ddatabase.name=${DB_NAME}
+-Ddatabase.port=${DB_PORT}
+-Ddatabase.user=${DB_USER}
+-Ddatabase.password=${DB_PASSWORD}
+-Dsecret.key=${SECRET_KEY}
+-DbucketName=${BUCKET}
+-Dspring.profiles.active=dev
+-DqueueName=${QUEUE}
 ```
 ### Migrate database schema
 Refer to flyway setup [documentation](https://flywaydb.org/documentation/migrations), find all [migration schema](mvc/src/main/resources/db/migration)
@@ -68,7 +68,7 @@ mvn clean compile flyway:migrate -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_P
 ```
 ### Testing
 ```
-mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=Aa123456 -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
+mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=${SECRET_KEY} -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
 ```
 ### Create ```war``` package file in ```target``` directory
 ```
@@ -212,7 +212,7 @@ docker inspect ${database_container_id} | grep "IPAddress"
 ```
 #### Execute Unit tests in the container
 ```
-mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=Aa123456 -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
+mvn clean compile test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.port=${DB_PORT} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} -Dlogging.level.com.infinity=DEBUG -Dsecret.key=${SECRET_KEY} -Ddatabase.name=${DB_NAME} -Dspring.profiles.active=unit -DqueueName=${QUEUE} -q
 ```
 ### create ```war```  package file in docker container
 ```
