@@ -4,7 +4,7 @@
 To help you make a better decision about whether to buy the game you are interested in, the details of all the current most popular video games with various categories are gathered here. It only takes you a few minutes to look through the game information you want and figures out if meets your needs!
 
 ### Project Technical Overview
-This application with SpringMVC design pattern is developed in Spring Framework by using Spring Boot, Hibernate, Flyway, Spring RESTful web services, Postman, Maven, Git, PostgresSql, Docker, JWT, Amazon SQS, and Amazon S3
+This application with SpringMVC design pattern is developed in Spring Framework by using Spring Boot, Hibernate, Flyway, Spring RESTful web services, Postman, Maven, Git, PostgreSql, Docker, JWT, Amazon SQS, and Amazon S3
 * Business Rules
     1. Objects: Company, Console, Game, User, Role
     2. Relationships
@@ -26,7 +26,7 @@ This application with SpringMVC design pattern is developed in Spring Framework 
         2. consumer: listening and handling messages 
 * Development Approaches
     1. Create User, Role, Company, Console, and Game
-    2. Pull and run PostgresSQL images to start container by using Docker
+    2. Pull and run PostgreSQL images to start container by using Docker
     3. Migrate database schema by Flyway
     4. Apply Hibernate to do object-relational mapping to model
     5. Implement application layer (persistence layer, business service and controller)    
